@@ -5,13 +5,16 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../assets/css/katex.min.css" />
+		<script src="../assets/js/katex.min.js"></script>
+		<script src="../assets/js/auto-render.js"></script>	
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-	</head>
-	
-<body class="is-preload">
+    </head>
+  
+<body>
     <nav >
-        <div class="container">
-            <!-- Navbar links -->
+        <div class="container"> 
             <div class="navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li >
@@ -19,17 +22,18 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>			
     </nav>
 	
 <main id="main">
-    <div class="content">
+    <div class="content inner">
 				<header class="page-header">
-					<center><h2 class="page-title">&nbsp; <b>Git</b> </h2></center>
+					<center><h2 class="page-title">&nbsp; Git</h2></center>
 				</header>
-
+				
 <section class="wrapper style1 align-left">
-	<div class="inner">
+<div class="inner">
+
 <p>使用Github来托管程序仓库，方便程序管理。
 </p>	
 <div class="language-plaintext highlighter-rouge">
@@ -65,36 +69,55 @@ $ ssh -T git@github.com
 <div class="highlight">
 <h3><b>同步远程和本地库 Git clone and push</b></h3>
 <pre class="highlight"><code>
-在github上创建项目
-使用git clone https://github.com/xxxxxxx/xxxxx.git克隆到本地
-编辑项目
-git add . （将改动添加到暂存区）
-git commit -m "提交说明"
-git push origin master 将本地更改推送到远程master分支。
-这样你就完成了向远程仓库的推送。
+1.从github上使用git clone https://github.com/xxxxxxx/xxxxx.git克隆到本地
 
-将本地文件夹test内的所有文件同步到https://github.com/fanhaojia/test.git
+
+2.将本地文件夹test内的所有文件同步到https://github.com/hahaha/test.git
 git init
 Initialized empty Git repository in /Users/michael/learngit/.git/
 产生.git文件夹,如果你没有看到.git目录，那是因为这个目录默认是隐藏的，用ls -ah命令就可以看见。
+git status 用于随时查看提交修改删除的记录
 
-git remote add origin https://github.com/fanhaojia/test.git
-git remote -v
-git remote remove **
-如果在github的remote上已经有了文件，会出现错误。此时应当先pull一下，即：
-git pull origin master
-然后再进行：
-git push origin master
+git remote add origin git@github.com:hahaha/test.git  (连接远程)
+“如果出现错误：fatal: remote origin already exists，则执行以下语句：
+查看git remote -v 
+删除 git remote remove **”
 
-编辑保存一个说明文件（在test文件夹下）：
-vi readme
-第一步，用命令git add告诉Git，把文件添加到仓库：
+git add . （将本地所有文件的改动添加到暂存区）
+git commit -m "提交说明"
+git push origin master 将本地更改推送到远程master分支。这样你就完成了向远程仓库的推送。
+
+“例子：
+本地进入一个test文件夹
+git init
+git remote add origin git@github.com:hahaha/test.git
+vi readme 编辑保存一个readme文件
+第一步，用git add命令告诉Git，把文件添加到仓库：
 git add readme
-如果是window，通过vi产生的文件add的时候会报错：
-warning: LF will be replaced by CRLF in readme.
-The file will have its original line endings in your working directory
-建议使用notepad++编辑保存readme
-第二步，用命令git commit告诉Git，把文件提交到仓库：
+如果是window，通过echo, vi产生的文件add的时候会报错：warning: LF will be replaced by CRLF in readme. The file will have its original line endings in your working directory
+因此建议任何时候都使用notepad++编辑保存readme
+第二步，用命令git commit告诉Git，把文件提交到仓库
+git commit -m "this is a test"
+然后git push origin master"
+
+如果git push origin master 时。报错 ! [rejected]      master -> master (fetch first)
+原因是没有同步远程的master，或remote上已经有了文件。（1）先同步一下git pull origin master，即将远程仓库 Github 上的文件拉下来合并之后重新推送上去 （2）可以使用git push origin master --force 强制push （极其谨慎使用,会强制覆盖）
+
+解决合并冲突（master|MERGING）
+git merge --abort
+
+“批量删除文件s或者文件夹
+git rm -r --cached .idea  #--cached不会把本地的.idea删除
+git commit -m 'delete .idea dir'
+git push -u origin master”
+
+git branch 查看当前所有的分支
+git checkout master 切换回master分支
+git merge dev 在当前的分支上合并dev分支
+git branch –d dev 删除dev分支
+git branch name 创建分支
+git add -u 添加修改过的文件到索引库
+
 </code></pre>
 </div></div>
 <p>在GitHub上免费托管的Git仓库，任何人都可以看到，但只有你自己才能改。
@@ -105,10 +128,12 @@ The file will have its original line endings in your working directory
 
 </div>
 
-</section>
+</div></section>
 </div>
-</main>	
-
+</main>
+			<script src="../assets/js/jquery-3.3.1.slim.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<script src="../assets/js/jquery.min.js"></script>
 			<script src="../assets/js/jquery.scrollex.min.js"></script>
 			<script src="../assets/js/jquery.scrolly.min.js"></script>

@@ -5,13 +5,16 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../assets/css/katex.min.css" />
+		<script src="../assets/js/katex.min.js"></script>
+		<script src="../assets/js/auto-render.js"></script>	
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
-	</head>
-	
-<body class="is-preload">
+    </head>
+  
+<body>
     <nav >
-        <div class="container">
-            <!-- Navbar links -->
+        <div class="container"> 
             <div class="navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li >
@@ -19,36 +22,105 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>			
     </nav>
-	
+		
 <main id="main">
-    <div class="content">
+    <div class="content inner">
 				<header class="page-header">
-					<center><h2 class="page-title">&nbsp; 标题 </h2></center>
+					<center><h2 class="page-title">&nbsp; Linux </h2></center>
 				</header>
-
 <section class="wrapper style1 align-left">
-	<div class="inner">
-	
+<div class="inner">
+<div class="panel-group  inner" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#system">
+                系统和硬件信息
+                </a>
+            </h4>
+        </div>
+        <div id="system" class="panel-collapse collapse in">
+            <div class="panel-body">
+<br>查看cpu信息：lscpu
+<br>查看内核版本命令： cat /proc/version
+<br>查看linux版本：lsb_release -a
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"  href="#Cproject">
+                Linux下的c语言工程
+            </a>
+            </h4>
+        </div>
+        <div id="Cproject" class="panel-collapse collapse">
+        <div class="panel-body">
+<br>c文件：主要每个模块的原代码都在c文件中。
+<br>h文件：每个c文件都跟着一个h文件，h文件的作用是放着c文件中函数的声明，结构体的定义，宏的定义等。
+<br>o文件：目标文件。每个文件经过编译都会形成一个目标文件（二进制文件），多个目标文件链接后才能形成可执行文件。
+<br>o文件如何形成： gcc -c a.c
+<br>
+<br>可执行文件：
+<br>不论是c文件还是o文件，都是无法执行的，最终还要生成可执行的文件。
+<br>gcc  a.c b.c c.c -o run  将c文件编译后链接，生成可执行文件
+<br>gcc a.o b.o c.o -o run   将目标文件链接为可执行文件
+<br>
+<br>a文件：将o文件打包生成的静态库。
+<br>so文件：形成动态库，当程序运行的时候才加载进来。
+<br>生成so文件：gcc a.c b.c c.c -fpic  -shared -o  librun.so
+.o文件是源码编译出的二进制文件。你先得了解从源代码到可执行文件的过程。以一个简单的add函数源文件为例：
 <div class="language-plaintext highlighter-rouge">
-<div class="highlight">
-<h2><b>标题二</b></h2>
-<pre class="highlight"><code>
-代码
-</code></pre>
+    <div class="highlight">
+    <pre class="highlight"><code>
+int add(int a,int b)
+{
+    return a+b;
+}
+    </code></pre>
 </div></div>
+<br>先预处理为.i文件
+<br>gcc -E add.c -o add.i
+<br>再编译为汇编文件
+<br>gcc -S add.i -o add.s
+<br>再汇编为二进制的.o文件
+<br>gcc -c add.s -o add.o
+<br>好，现在.o文件出来了。它就是C/C++编译的产物，因为C/C++编译的单元编译。每一个.c/.cpp文件就是一个编译单元，把所有单元都编译好之后，再连接成一个完成的程序。
+<br>.a文件实质上就是.o文件打了个包。一般把它叫做静态库文件。它在使用的时候，效果和使用.o文件是一样的。
+<br>.so文件就不一样了,它不是简单的.o文件打了一个包，它是一个ELF格式的文件，也就是linux的可执行文件。
+<br>.so文件可以用于多个进程的共享使用（位置无关的才行），所以又叫共享库文件。程序在使用它的时候，会在运行时把它映射到自己进程空间的某一处，其不在使用它的程序中。
+<br>原文链接：https://blog.csdn.net/a879365197/article/details/72933916
 
-
-
-
-
+        </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"  href="#unzip">
+            解压文件
+                </a>
+            </h4>
+        </div>
+        <div id="unzip" class="panel-collapse collapse">
+            <div class="panel-body">
+			tar.gz文件解压: tar -zxvf xxx.tar.gz
+		<br>tar.xz文件解压: 先 xz -d xxx.tar.xz 将 xxx.tar.xz解压成 xxx.tar 然后，再用 tar xvf xxx.tar
+            </div>
+        </div>
+    </div>
 </div>
 
-</section>
-</div>
-</main>	
+</div></section>
 
+</div>
+</main>
+			<script src="../assets/js/jquery-3.3.1.slim.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
 			<script src="../assets/js/jquery.min.js"></script>
 			<script src="../assets/js/jquery.scrollex.min.js"></script>
 			<script src="../assets/js/jquery.scrolly.min.js"></script>
@@ -59,4 +131,3 @@
 
 	</body>
 </html>
-

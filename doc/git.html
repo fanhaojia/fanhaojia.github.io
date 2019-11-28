@@ -94,8 +94,11 @@ git remote add origin git@github.com:hahaha/test.git
 vi readme 编辑保存一个readme文件
 第一步，用git add命令告诉Git，把文件添加到仓库：
 git add readme
-如果是window，通过echo, vi产生的文件add的时候会报错：warning: LF will be replaced by CRLF in readme. The file will have its original line endings in your working directory
-因此建议任何时候都使用notepad++编辑保存readme
+Windows中使用CRLF标识一行的结束，而在Linux/UNIX系统中只使用LF标识一行的结束。因此记事本等编辑的文件会报错：warning: LF will be replaced by CRLF in readme. The file will have its original line endings in your working directory
+建议任使用notepad++编辑保存readme
+git config --global --get core.autocrlf
+git config --get core.autocrlf
+
 第二步，用命令git commit告诉Git，把文件提交到仓库
 git commit -m "this is a test"
 然后git push origin master"

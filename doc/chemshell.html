@@ -102,6 +102,66 @@ make
 </code></pre>
 </div>
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>安装chemshell</b></h2>
+<pre class="highlight"><code>
+module load gold/compiler/intel/ps2018
+下载chemshell, 需要注册邮箱
+tar -zxvf chemsh-py-19.0.4.tar.gz
+cd chemsh-py-19.0.4
+vi setup
+将“
+    command += ' -DBLAS_DIR:PATH='+args.blas
+    command += ' -DLAPACK_DIR:PATH='+args.lapack
+    command += ' -DFFTW_DIR:PATH='+args.fftw
+    command += ' -DFFTW_INCLUDE_PATH:PATH='+args.fftw_include
+
+    # ScaLAPACK
+    if args.scalapack:
+        try:
+            command += ' -DScaLAPACK_DIR:PATH='+args.scalapack
+        except:
+            command += ' -DScaLAPACK_DIR:PATH='+args.mkl
+    if args.scalapack_flags:
+        command += ' -DScaLAPACK_FLAGS:STRING='+'"'+args.scalapack_flags+'"'
+
+    command += ' -DMKL='+args.mkl
+    command += ' -DMKL_FLAGS:STRING='+'"'+args.mkl_flags+'"'
+”修改为“
+    command += ' -DBLAS_DIR:PATH='+'/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/lib/intel64'
+    command += ' -DLAPACK_DIR:PATH='+'/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/lib/intel64'
+    command += ' -DFFTW_DIR:PATH='+args.fftw
+    command += ' -DFFTW_INCLUDE_PATH:PATH='+'/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/include/fftw'
+
+    # ScaLAPACK
+    if args.scalapack:
+        try:
+            command += ' -DScaLAPACK_DIR:PATH='+'/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/lib/intel64'
+        except:
+            command += ' -DScaLAPACK_DIR:PATH='+'/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/lib/intel64'
+    if args.scalapack_flags:
+        command += ' -DScaLAPACK_FLAGS:STRING='+'"'+args.scalapack_flags+'"'
+
+    command += ' -DMKL='+'/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/lib/intel64'
+    command += ' -DMKL_FLAGS:STRING='+'"'+args.mkl_flags+'"'
+”
+vi ./chemsh/utils/platforms/ubuntu.py
+将“
+    elif args.__CHEMSH_ARCH == 'intel':
+
+        args.mkl = args.blas = args.lapack = '/opt/intel/mkl/lib/intel64'
+”修改为“
+    elif args.__CHEMSH_ARCH == 'intel':
+
+        args.mkl = args.blas = args.lapack = '/share/apps/intel/ps2018/compilers_and_libraries_2018.0.128/linux/mkl/lib/intel64'
+”
+然后
+./setup --mpi --fc mpiifort --cc mpiicc --cpc mpiicpc --nwchem /share/apps/nwchem/nwchem-6.8.1-release
+
+</code></pre>
+</div>
+
 </div></section>
 </div>
 </main>

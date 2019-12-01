@@ -25,7 +25,7 @@
 <main id="main">
     <div class="content">
 				<header class="page-header">
-					<center><h2 class="page-title">&nbsp; Chemshell </h2></center>
+					<center><h2 class="page-title">&nbsp; Chemshell mpiifort编译</h2></center>
 				</header>
 
 <section class="wrapper style1 align-left">
@@ -33,12 +33,74 @@
 	
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
-<h2><b>标题二</b></h2>
+<h2><b>cmake</b></h2>
 <pre class="highlight"><code>
-代码
+不建议使用源码cmake-3.15.5.tar.gz安装。
+直接使用二进制比较简单，下载https://github.com/Kitware/CMake/releases/download/v3.15.5/cmake-3.15.5-Linux-x86_64.sh
+chmod +x cmake-3.16.0-Linux-x86_64.sh
+./cmake-3.16.0-Linux-x86_64.sh
+cd cmake-3.16.0-Linux-x86_64/bin
+vi ~/.bashrc
+export PATH="/share/home/jiafanhao/software/cmake-3.16.0-Linux-x86_64/bin:$PATH"
+source ~/.bashrc
 </code></pre>
 </div>
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Anaconda3</b></h2>
+<pre class="highlight"><code>
+下载Anaconda3-4.4.0-Linux-x86_64.sh
+chmod +x Anaconda3-4.4.0-Linux-x86_64.sh
+./Anaconda3-4.4.0-Linux-x86_64.sh
+安装default一路安装
+source ~/.bashrc
+</code></pre>
+</div>
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Nwchem-6.8.1</b></h2>
+<pre class="highlight"><code>
+下载nwchem-6.8.1-release.tar.gz
+tar -zxvf nwchem-6.8.1-release.tar.gz
+cd nwchem-6.8.1-release/src
+vi setenv.sh
+粘贴下面代码，根据你的系统环境变量调整"
+#!/bin/bash -l
+module load gold/compiler/intel/ps2018
+export MKLROOT=/share/opt/intel/ps2019/compilers_and_libraries_2019.1.144/linux/mkl
+export NWCHEM_TOP=/share/apps/nwchem/nwchem-6.8.1-release
+export NWCHEM_TARGET=LINUX64
+export IB_LIB=/usr/lib64
+export IB_INCLUDE=/usr/include
+export IB_LIB_NAME="-libverbs"
+export ARMCI_NETWORK=OPENIB
+export USE_MPI=y
+export USE_MPIF=y
+export USE_MPIF4=y
+export USE_SCALAPACK=y
+export MKL_INCLUDE="$MKLROOT/include"
+export SCALAPACK="-L$MKLROOT/lib/intel64 -lmkl_scalapack_ilp64 -lmkl_intel_ilp64 -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lmkl_sequential -lpthread -lm"
+export SCALAPACK_LIB="$SCALAPACK"
+export SCALAPACK_SIZE=8
+export BLASOPT="-L$MKLROOT/lib/intel64 -lmkl_intel_ilp64 -lmkl_core -lmkl_sequential -lpthread -lm"
+export BLAS_SIZE=8
+export USE_NOIO=y
+export CRAYPE_LINK_TYPE=dynamic
+export LARGE_FILES=true
+export NWCHEM_MODULES=all
+export FC=ifort
+export CC=icc
+export CXX=icpc
+"
+chmod +x setenv.sh
+source setenv.sh
+
+make nwchem_config
+make
+</code></pre>
+</div>
 
 </div></section>
 </div>

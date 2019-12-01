@@ -161,7 +161,27 @@ vi ./chemsh/utils/platforms/ubuntu.py
 
 </code></pre>
 </div>
-
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>to 英豪：</b></h2>
+<pre class="highlight"><code>
+我把安装chemshell要用到的软件包都放在：/share/home/jiafanhao/software/chemshell_packs
+第一步：在/share/apps 安装cmake 
+chmod +x cmake-3.16.0-Linux-x86_64.sh
+./cmake-3.16.0-Linux-x86_64.sh
+cd cmake-3.16.0-Linux-x86_64/bin
+export PATH="/share/apps/cmake-3.16.0-Linux-x86_64/bin:$PATH"
+第二部:
+module load gold/anaconda/anaconda3_64
+module load gold/compiler/intel/ps2018
+第三步：在/share/apps 安装chemshell
+tar -zxvf chemsh-py-19.0.4.tar.gz
+cd chemsh-py-19.0.4
+cp /share/home/jiafanhao/software/chemshell_packs/setup ./
+cp /share/home/jiafanhao/software/chemshell_packs/ubuntu.py ./chemsh/utils/platforms/
+./setup --mpi --fc mpiifort --cc mpiicc --cpc mpiicpc --nwchem /share/apps/nwchem/nwchem-6.8.1-release
+</code></pre>
+</div>
 </div></section>
 </div>
 </main>

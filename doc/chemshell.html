@@ -94,7 +94,7 @@ export BLAS_LIB="-I$MKL_INCL_DIR -L$MKL_LIBS_DIR -lmkl_intel_ilp64 -lmkl_core -l
 export LAPACK_LIB="-I$MKL_INCL_DIR -L$MKL_LIBS_DIR -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -lpthread -lm -mkl=parallel"
 export BLASOPT="$BLAS_LIB"
 
-export USE_64TO32=y
+export USE_64TO64=y
 export FC="ifort -fPIC "
 export CC="icc -fPIC "
 "

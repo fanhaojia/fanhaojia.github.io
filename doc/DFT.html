@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="../assets/css/katex.min.css" />
 		<script src="../assets/js/katex.min.js"></script>
 		<script src="../assets/js/auto-render.js"></script>	
+		<script type="text/x-mathjax-config">  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+		<script type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>		
 		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
     </head>
   
@@ -28,21 +30,136 @@
 <main id="main">
     <div class="content inner">
 				<header class="page-header">
-					<center><h2 class="page-title">&nbsp; DFT </h2></center>
+					<center><h2 class="page-title">密度泛函理论(Density functional theory, DFT)</h2></center>
 				</header>
-				
+
+
 <section class="wrapper style1 align-left">
 <div class="inner">
-	
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
-<h2><b>标题二</b></h2>
-<pre class="highlight"><code>
-代码
-</code></pre>
-</div></div>
-
-
+<p>&nbsp;&nbsp;&nbsp;&nbsp;DFT由Hohenberg-Kohn (HK) 在19世纪60年代提出[1]，是凝聚态物理和计算化学领域最常用的方法之一。它使用只有三个变量的电子密度取代3N个变量 (N为电子数)的多电子波函数作为研究的基本量，在保证足够精度的情况下大大简化了计算量。其中在HK的文章中证明了两个定理：</p>
+<ul>
+<li>体系的基态能量仅仅是电子密度的泛函。</li>
+<li>以基态密度为变量，将体系能量通过变分得到最小值之后就得到了基态能量。</li>
+</ul>
+<p>可应用于实际体系的DFT则由Kohn-Sham (KS)给出[2]，即局域密度近似(Local density functional approximation, LDA), 基本物理图像的推导可参考[3]：</p>
+$$
+\begin{aligned} E_{0}=\min _{\psi}\{\langle\Psi| T&\left.+V_{e e}|\Psi\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})} \min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\{\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})}\left\{\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})}\left\{F[\rho(\boldsymbol{r})]+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\}=\min _{\rho(r)} E_{v}[\rho(\boldsymbol{r})] \end{aligned}
+$$
+<p>不难看出$F[\rho(\boldsymbol{r})]=\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle$存在这样的特点：</p>
+<ul>
+<li>它是关于密度$\rho(\boldsymbol{r})$的泛函，即一个对应一个值</li>
+<li>它存在一个普适的不依赖于具体体系(电子数及外势)的形式。因此在均匀电子气获得的泛函，也将适用于任何分子体系、固体体系</li>
+</ul>
+<p>在具体的计算中，$T_{s}$是最复杂的一部分(可参考Thomas&ndash;Fermi模型近似的动能表示在现代轨道无关DFT中的应用)，直到现在这部分的近似仍然不够精确。在KS的文章中，使用了最简单的波函数来近似$T_{s}$，即Slater行列式：</p>
+$$
+\left|\Phi_{S}\right\rangle=\left|\chi_{1} \chi_{2} \dots \chi_{i} \chi_{j} \dots \chi_{N}\right\rangle
+$$
+$$
+\begin{aligned} T_{s}[\rho]=\left\langle\phi_{s}\right| & \sum_{i}^{N}-\frac{1}{2} \nabla_{i}^{2}\left|\phi_{s}\right|=\sum_{i}^{N} \int d \boldsymbol{r}_{i} \phi_{i}^{*}\left(\boldsymbol{r}_{i}\right)\left(-\frac{1}{2} \nabla_{i}^{2}\right) \phi_{i}\left(\boldsymbol{r}_{i}\right) \\ &=\sum_{i}\left\langle\phi_{i}\left|-\frac{1}{2} \nabla^{2}\right| \phi_{i}\right\rangle \end{aligned}
+$$
+<p>即$T_{s}$为无相互作用的轨道动能之和，轨道由电荷密度决定，而电荷密度则可以表示为无相互作用的轨道密度之和：</p>
+$$
+\rho(\boldsymbol{r})=\sum_{i}^{N}\left|\phi_{i}(\boldsymbol{r})\right|^{2}
+$$
+<p>需要注意的是轨道表示的$\rho(\boldsymbol{r})$是真实的电荷密度(虽为被严格数学证明，但目前的检验都认为是正确的)，但是轨道表示的$T_{s}$并不是真实的动能，虽然它是一个不错的近似。然后，我们引入交换关联泛函：</p>
+$$
+F[\rho]=T[\rho]+V_{e e}[\rho]=T_{s}[\rho]+J[\rho]+E_{x c}[\rho]
+$$
+$$
+J[\rho]=\frac{1}{2} \int d \boldsymbol{r} d \boldsymbol{r}^{\prime} \frac{\rho(\boldsymbol{r}) \rho\left(\boldsymbol{r}^{\prime}\right)}{\left|\boldsymbol{r}-\boldsymbol{r}^{\prime}\right|}
+$$
+$$
+E_{x c}[\rho]=T[\rho]-T_{s}[\rho]+V_{e e}[\rho]-J[\rho]
+$$
+<p>其中为势能(也常被成为Hartree能$E_H$)，而所谓的$E_{x c}[\rho]$则为所有剩余未知项，即动能误差和势能误差。因此，在轨道表象，KS总能表示为：</p>
+$$
+E_{v}[\rho]=\sum_{i}^{N}\left\langle\phi_{i}\left|-\frac{1}{2} \nabla^{2}\right| \phi_{i}\right\rangle+ J[\rho]+E_{x c}[\rho]+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})
+$$
+<p>能量的最小值由密度的泛函决定(或轨道的泛函)，因此可以通过搜索轨道空间获得最小值，即构建拉格朗日方程迭代：</p>
+$$
+W\left[\phi_{i}\right]=E_{v}\left[\phi_{i}\right]-\sum_{i}^{N} \varepsilon_{i}\left\{<\phi_{i} | \phi_{i}>-1\right\}, \quad \frac{\delta W\left[\phi_{i}\right]}{\delta \phi_{i}(r)}=0
+$$
+<p>这个最小化过程中将出现两种方程：</p>
+<ul>
+<li>如果我们对于$E_{x c}[\rho]$能给出确定的泛函，那么这些轨道为一单电子局域势的本征态(即只有一个坐标，实空间能被对角化)，也就是原始的KS方程：</li>
+<li>对于轨道相关的泛函，例如交换泛函用Hatree-Fock+其它关联泛函(由轨道或密度矩阵表示)，那么方程会出现非局域势算符，(即HF-like方程，广义的KS方程)</li>
+</ul>
+<p>总结KS理论的特征：</p>
+<ul>
+<li>对于N个轨道体系，相对于使用TF理论使用密度表示动能，KS方程里的动能项被粗糙地但有效地处理，这是计算精度和效率的一个折中。</li>
+<li>KS和GKS方程与HF方程非常相似，因此可以使用相似的方法进行求解。</li>
+<li>KS和GKS方程将一个N个粒子相互作用方程问题转换为在一个有效势中的N个无相互作用粒子问题。</li>
+<li>交换关联能<em>E<sub>xc</sub></em>是未知的，它约占总能的10%。</li>
+</ul>
+<p><strong>交换关联泛函</strong><strong>:</strong></p>
+<p>前面我们提到，不论是无相互作用体系还是相互作用体系的电荷密度都可以表示为无相互作用轨道密度之和。那么是否有可能连接无相互作用体系和相互作用体系的其它物理量呢？</p>
+<p>绝热连接(Adiabatic connection)图像: 从KS系统到真实物理系统</p>
+<p>&nbsp;</p>
+<table>
+<tbody>
+<tr>
+<td width="245">
+<p>KS Reference System</p>
+</td>
+<td width="308">
+<p>Physical System</p>
+</td>
+</tr>
+<tr>
+<td width="245">&nbsp;</td>
+<td width="308">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>最终可以获得：</p>
+<p><em>E<sub>xc</sub></em>具备以下几个特征：</p>
+<ul>
+<li><em>E<sub>xc</sub></em>由波函数表示(相较于直接计算，这一表示增加了计算量，但适合理论公式化);</li>
+<li>相比于，更适合连接其它量子多体理论，例如RPA;</li>
+<li>当&lambda;=0时，<em>E<sub>xc</sub></em>等于HF exchange能。</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>局域密度近似</strong><strong>:</strong></p>
+<p>其中为密度为<em>&rho;</em>的简谐电子气的单粒子交换关联能。它为<em>&rho;</em>的泛函，其中交换能采用Dirac交换能泛函：</p>
+<p>而关联能则来自于量子蒙特卡洛模拟。其它泛函包括广义梯度近似：；杂化泛函：以及Range-separated泛函等。这里我们给出几种泛函的具体形式：</p>
+<p>DFA的误差研究是一个复杂课题，目前广泛使用的泛函基本上都具有下列问题，主要分为三类：</p>
+<p>第一类为Delocalization error：</p>
+<ul>
+<li>Over-binding of charge transfer complex</li>
+<li>低估反应能垒</li>
+<li>高估极化</li>
+<li>交换关联势错误的长程行为</li>
+<li>严重低估能隙</li>
+<li>激发态的电荷转移</li>
+</ul>
+<p>(j) 分子和离子的错误的解离能</p>
+<p>第二类为Scf-interaction error：的问题</p>
+<p>第三类为Static correlation error:</p>
+<ul>
+<li>化学键解离能的巨大误差</li>
+<li>过渡金属二聚物问题</li>
+<li>一些磁性性质</li>
+<li>强关联体系</li>
+<li>Mott绝缘体，高温超导</li>
+<li>简并和准简并</li>
+</ul>
+<p>关于DFA误差的理论工作，这里推荐参考Weitao Yang课题组近几年关于分数电荷、自旋问题的研究进展[4]。关于DFT部分的总结：</p>
+<ul>
+<li>DFT是严格正确的，应该对所有体系都能给出与实验以及其它高阶第一性原理计算一致的结果</li>
+<li>泛函的近似对于大多数体系都表现良好，但有些体系会非常糟糕</li>
+<li>这些误差来自于DFA (density functional approximation)</li>
+<li>理解这些误差可以帮助发展新的泛函</li>
+<li>其它量子力学的近似也会遇到同样的问题</li>
+</ul>
+<p>&nbsp;</p>
+<p>参考文献:</p>
+<p>[1]&nbsp;&nbsp;&nbsp; P. Hohenberg and W. Kohn, Physical review <strong>136</strong>, B864 (1964).</p>
+<p>[2]&nbsp;&nbsp;&nbsp; W. Kohn and L. J. Sham, Physical review <strong>140</strong>, A1133 (1965).</p>
+<p>[3]&nbsp;&nbsp;&nbsp; M. Levy, Proceedings of the National Academy of Sciences <strong>76</strong>, 6062 (1979).</p>
+<p>[4]&nbsp;&nbsp;&nbsp; P. Mori-S&aacute;nchez, A. J. Cohen, and W. Yang, Physical review letters <strong>102</strong>, 066403 (2009).</p>
+<p>&nbsp;</p>
 
 </div></section>
 </div>

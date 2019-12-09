@@ -1,11 +1,89 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-<title>MathJax TeX Test Page</title>
-<script type="text/x-mathjax-config">  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
-<script type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-</head>
+	<head>
+		<title>Fanhao Jia</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../assets/css/katex.min.css" />
+		<script src="../assets/js/katex.min.js"></script>
+		<script src="../assets/js/auto-render.js"></script>	
+		<script type="text/x-mathjax-config">  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+		<script type="text/javascript"  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>		
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    </head>
+  
 <body>
-$$ TPM_{i} = \frac{ \frac{ N_{i} }{ L_{i} } * 1000000}{\sum_{i=1}^{n} \frac{N_{i}}{L_{i}}}$$
-</body>
+    <nav >
+        <div class="container"> 
+            <div class="navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="https://fanhaojia.github.io/#note"><b>主页Home</b></a>
+                    </li>
+                </ul>
+            </div>
+        </div>			
+    </nav>
+	
+<main id="main">
+    <div class="content inner">
+				<header class="page-header">
+					<center><h2 class="page-title">&nbsp; Linux </h2></center>
+				</header>
+				
+<section class="wrapper style1 align-left">
+<div class="inner">
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>标题二</b></h2>
+<pre class="highlight"><code>
+代码
+</code></pre>
+</div></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;DFT由Hohenberg-Kohn (HK) 在19世纪60年代提出[1]，是凝聚态物理和计算化学领域最常用的方法之一。它使用只有三个变量的电子密度取代3N个变量 (N为电子数)的多电子波函数作为研究的基本量，在保证足够精度的情况下大大简化了计算量。其中在HK的文章中证明了两个定理：</p>
+<ul>
+<li>体系的基态能量仅仅是电子密度的泛函。</li>
+<li>以基态密度为变量，将体系能量通过变分得到最小值之后就得到了基态能量。</li>
+</ul>
+<p>可应用于实际体系的DFT则由Kohn-Sham (KS)给出[2]，即局域密度近似(Local density functional approximation, LDA), 基本物理图像的推导可参考[3]：</p>
+$$
+\begin{aligned} E_{0}=\min _{\psi}\{\langle\Psi| T&\left.+V_{e e}|\Psi\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})} \min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\{\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})}\left\{\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})}\left\{F[\rho(\boldsymbol{r})]+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\}=\min _{\rho(r)} E_{v}[\rho(\boldsymbol{r})] \end{aligned}
+$$
+<p>不难看出$F[\rho(\boldsymbol{r})]=\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle$存在这样的特点：</p>
+<ul>
+<li>它是关于密度$\rho(\boldsymbol{r})$的泛函，即一个对应一个值</li>
+<li>它存在一个普适的不依赖于具体体系(电子数及外势)的形式。因此在均匀电子气获得的泛函，也将适用于任何分子体系、固体体系</li>
+</ul>
+<p>在具体的计算中，$T_{s}$是最复杂的一部分(可参考Thomas&ndash;Fermi模型近似的动能表示在现代轨道无关DFT中的应用)，直到现在这部分的近似仍然不够精确。在KS的文章中，使用了最简单的波函数来近似$T_{s}$，即Slater行列式：</p>
+$$
+\left|\Phi_{S}\right\rangle=\left|\chi_{1} \chi_{2} \dots \chi_{i} \chi_{j} \dots \chi_{N}\right\rangle
+$$
+$$
+\begin{aligned} T_{s}[\rho]=\left\langle\phi_{s}\right| & \sum_{i}^{N}-\frac{1}{2} \nabla_{i}^{2}\left|\phi_{s}\right|=\sum_{i}^{N} \int d \boldsymbol{r}_{i} \phi_{i}^{*}\left(\boldsymbol{r}_{i}\right)\left(-\frac{1}{2} \nabla_{i}^{2}\right) \phi_{i}\left(\boldsymbol{r}_{i}\right) \\ &=\sum_{i}\left\langle\phi_{i}\left|-\frac{1}{2} \nabla^{2}\right| \phi_{i}\right\rangle \end{aligned}
+$$
+<p>即$T_{s}$为无相互作用的轨道动能之和，轨道由电荷密度决定，而电荷密度则可以表示为无相互作用的轨道密度之和：</p>
+$$
+\rho(\boldsymbol{r})=\sum_{i}^{N}\left|\phi_{i}(\boldsymbol{r})\right|^{2}
+$$
+
+
+</div></section>
+</div>
+</main>
+			<script src="../assets/js/jquery-3.3.1.slim.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
 </html>
+

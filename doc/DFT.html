@@ -49,12 +49,12 @@
 $$
 \begin{aligned} E_{0}=\min _{\psi}\{\langle\Psi| T&\left.+V_{e e}|\Psi\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})} \min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\{\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})}\left\{\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\} \\ &=\min _{\rho(\boldsymbol{r})}\left\{F[\rho(\boldsymbol{r})]+\int d \boldsymbol{r} v_{e x t}(\boldsymbol{r}) \rho(\boldsymbol{r})\right\}=\min _{\rho(r)} E_{v}[\rho(\boldsymbol{r})] \end{aligned}
 $$
-<p>不难看出\(F[\rho(\boldsymbol{r})]=\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle)\)存在这样的特点：</p>
+<p>不难看出\(F[\rho(\boldsymbol{r})]=\min _{\psi \rightarrow \rho(\boldsymbol{r})}\left\langle\Psi\left|T+V_{e e}\right| \Psi\right\rangle\)存在这样的特点：</p>
 <ul>
 <li>它是关于密度\(\rho(\boldsymbol{r})\)的泛函，即一个对应一个值</li>
 <li>它存在一个普适的不依赖于具体体系(电子数及外势)的形式。因此在均匀电子气获得的泛函，也将适用于任何分子体系、固体体系</li>
 </ul>
-<p>在具体的计算中，\(T_{s}\)是最复杂的一部分(可参考Thomas&ndash;Fermi模型近似的动能表示在现代轨道无关DFT中的应用)，直到现在这部分的近似仍然不够精确。在KS的文章中，使用了最简单的波函数来近似$T_{s}$，即Slater行列式：</p>
+<p>在具体的计算中，\(T_{s}\)是最复杂的一部分(可参考Thomas&ndash;Fermi模型近似的动能表示在现代轨道无关DFT中的应用)，直到现在这部分的近似仍然不够精确。在KS的文章中，使用了最简单的波函数来近似\(T_{s}\)，即Slater行列式：</p>
 $$
 \left|\Phi_{S}\right\rangle=\left|\chi_{1} \chi_{2} \dots \chi_{i} \chi_{j} \dots \chi_{N}\right\rangle
 $$

@@ -70,16 +70,16 @@ export MKLROOT=/THFS/opt/intel/composer_xe_2013_sp1.3.174/mkl
 export FFT_LIBS="-L$MKLROOT/lib/intel64"
 ./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
 make all
-make install
 
 or
 export MKLROOT=/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl
 export MKL_PATH=$MKLROOT/lib/intel64
 ./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
 make all
-make install
 
-赝势下载 https://www.quantum-espresso.org/pseudopotentials
+赝势下载：<a href="https://www.quantum-espresso.org/pseudopotentials">https://www.quantum-espresso.org/pseudopotentials</a>
+参数注释：<a href="https://www.quantum-espresso.org/Doc/INPUT_PW.html">https://www.quantum-espresso.org/Doc/INPUT_PW.html</a>
+计算例子：<a href="https://gitlab.com/QEF/q-e/tree/master/PW/examples">https://gitlab.com/QEF/q-e/tree/master/PW/examples</a>
 </code></pre>
 </div></div>
 

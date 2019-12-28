@@ -112,8 +112,11 @@ int add(int a,int b)
         </div>
         <div id="unzip" class="panel-collapse collapse">
             <div class="panel-body">
-			tar.gz文件解压: tar -zxvf xxx.tar.gz
+			tar –czf test.tar.gz test 将test文件夹打包成jpg.tar后，并用gzip压缩，生成一个gzip压缩过的包生成test.tar.gz
+	    <br>tar.gz文件解压: tar -zxvf xxx.tar.gz
 		<br>tar.xz文件解压: 先 xz -d xxx.tar.xz 将 xxx.tar.xz解压成 xxx.tar 然后，再用 tar xvf xxx.tar
+		<br>tar.bz2文件解压: tar -jxvf file.tar.bz2
+		<br>.7z文件解压: 7za x file.7z
             </div>
         </div>
     </div>

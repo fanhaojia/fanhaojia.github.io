@@ -32,32 +32,47 @@
 <main id="main">
     <div class="content inner">
 				<header class="page-header">
-					<center><h2 class="page-title">VASP mpiifort 编译</h2></center>
+					<center><h2 class="page-title">&nbsp; Abinit编译</h2></center>
 				</header>
 				
 <section class="wrapper style1 align-left">
 <div class="inner">
-<h2><b>安装Intel compiler</b></h2>
-<p>&nbsp; &nbsp; &nbsp; &nbsp; Intel编译器</p>
+	
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>参考链接</b></h2>
 <pre class="highlight"><code>
-./install.sh
-超算直接使用装好的就行
-source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
-source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
-which ifort
-which mpiifort
+(1) ABINIT官网：https://www.abinit.org/
+(2) ABINIT官方论坛：https://forum.abinit.org/
+(3) ABINIT官网教程：
+https://docs.abinit.org/tutorial/
+(4) ABINIT赝势库：http://www.pseudo-dojo.org/
+(5) ABINIT Workshop PPT：
+https://www.abinit.org/events
+(6) ABINIT官网后处理程序：
+https://github.com/abinit/abipy
+https://github.com/piti-diablotin/qAgate
+
+离线安装可download下列安装包，并放在abinit-8..3/tarballs:
+http://forge.abinit.org/fallbacks/lapack-abinit_6.10.tar.gz
+https://www.tddft.org/programs/libxc/download/
+https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.7.3.tar.gz
+</code></pre>
+
+<h2><b>环境变量</b></h2>
+<pre class="highlight"><code>
+module load mpi
+module load intel_2018
 </code></pre>
 </div></div>
 
-<h2><b>FFTW编译</b></h2>
-<p>&nbsp; &nbsp; &nbsp; &nbsp; FFT(Fast Fourier Transformation), 即为快速傅氏变换，是离散傅氏变换(Discrete Fourier Transform, DFT)的快速算法，它是根据离散傅氏变换的奇、偶、虚、实等特性，对离散傅立叶变换的算法进行改进获得的。
+<p>FFT(Fast Fourier Transformation), 即为快速傅氏变换，是离散傅氏变换(Discrete Fourier Transform, DFT)的快速算法，它是根据离散傅氏变换的奇、偶、虚、实等特性，对离散傅立叶变换的算法进行改进获得的。
 离散傅里叶变换是傅里叶变换在时域和频域上都呈离散的形式,将信号的时域采样变换为其DTFT的频域采样。
 FFTW (the Faster Fourier Transform in the West)是一个快速计算离散傅里叶变换的标准C语言程序集，可用于计算一维或多维实和复数据以及任意规模的DFT。
 </p>
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>FFTW编译</b></h2>
 <pre class="highlight"><code>
 source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
 source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
@@ -75,6 +90,47 @@ make install
 </code></pre>
 </div></div>
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install abinit</b></h2>
+<pre class="highlight"><code>
+tar -zxvf abinit-8.10.3.tar.gz
+cd abinit-8.10.3
+mkdir build tarballs
+vi ubuntu.ac
+"
+# ================================================================
+# Configuration file for ABINIT 8 compilation on COBALT
+# The following modules have to be loaded before compilation:
+#================================================================
+prefix="/THFS/home/gk_ahu_ljy/softwares/abinit-8.10.3/build"
+FC="mpiifort"
+CC="mpiicc"
+CXX="mpicxx"
+enable_mpi="yes"
+enable_mpi_io="yes"
+enable_gpu="no"
+with_mpi_prefix="/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mpi/intel64"
+with_linalg_flavor="mkl"
+with_linalg_libs="$(MKLROOT)/lib/intel64 -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -lmkl_scalapack_ilp64 -lpthread -lm"
+with_fft_flavor="fftw3"
+with_fft_incs="-I/THFS/home/gk_ahu_ljy/softwares/fftw-3.3.8/include"
+with_fft_libs="-L/THFS/home/gk_ahu_ljy/softwares/fftw-3.3.8/lib -lfftw3_threads -lfftw3 -lfftw3f"
+with_trio_flavor="netcdf"
+with_dft_flavor="libxc"
+#with_libxc_libs="-L/home/gang/software/libxc-4.3.4/install-path/lib -lxc -lxcf90"
+#with_libxc_incs="-I/home/gang/software/libxc-4.3.4/install-path/include"
+#with_netcdf_incs="-I/usr/include"
+#with_netcdf_libs="-L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff"
+#with_netcdf_libs="-L/THFS/home/gk_ahu_ljy/softwares/netcdf-needed-path/lib –lnetcdf -lnetcdff"
+#with_netcdf_incs="-I/THFS/home/gk_ahu_ljy/softwares/netcdf-needed-path/include"
+"
+../configure --with-config-file="./ubuntu.ac" --with-tardir=/THFS/home/gk_ahu_ljy/softwares/abinit-8.10.3/tarballs/ --with-wannier90-libs="/THFS/home/gk_ahu_ljy/softwares/vasp544/wannier90-2.1.0/libwannier.a"
+make multi multi_nprocs=8
+make install
+
+</code></pre>
+</div></div>
 
 </div>
 
@@ -94,3 +150,4 @@ make install
 
 	</body>
 </html>
+

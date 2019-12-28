@@ -32,49 +32,56 @@
 <main id="main">
     <div class="content inner">
 				<header class="page-header">
-					<center><h2 class="page-title">VASP mpiifort 编译</h2></center>
+					<center><h2 class="page-title">&nbsp; Quantum Espresso编译</h2></center>
 				</header>
 				
 <section class="wrapper style1 align-left">
 <div class="inner">
-<h2><b>安装Intel compiler</b></h2>
-<p>&nbsp; &nbsp; &nbsp; &nbsp; Intel编译器</p>
+
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>环境变量</b></h2>
 <pre class="highlight"><code>
-./install.sh
-超算直接使用装好的就行
-source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
-source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
-which ifort
-which mpiifort
+source /THFS/opt/intel/composer_xe_2013_sp1.3.174/bin/compilervars.sh intel64
+source /THFS/opt/intel/composer_xe_2013_sp1.3.174/mkl/bin/mklvars.sh intel64
+
+or
+source /THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/bin/compilervars.sh intel64
+source /THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl/bin/mklvars.sh intel64
 </code></pre>
 </div></div>
 
-<h2><b>FFTW编译</b></h2>
-<p>&nbsp; &nbsp; &nbsp; &nbsp; FFT(Fast Fourier Transformation), 即为快速傅氏变换，是离散傅氏变换(Discrete Fourier Transform, DFT)的快速算法，它是根据离散傅氏变换的奇、偶、虚、实等特性，对离散傅立叶变换的算法进行改进获得的。
-离散傅里叶变换是傅里叶变换在时域和频域上都呈离散的形式,将信号的时域采样变换为其DTFT的频域采样。
-FFTW (the Faster Fourier Transform in the West)是一个快速计算离散傅里叶变换的标准C语言程序集，可用于计算一维或多维实和复数据以及任意规模的DFT。
-</p>
+
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>Libxc编译</b></h2>
 <pre class="highlight"><code>
-source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
-source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
-wget http://www.fftw.org/fftw-3.3.8.tar.gz
-tar -zxvf fftw-3.3.8.tar.gz
-cd fftw-3.3.8
-编译双精度版本
-./configure --prefix=/public/home/users/shu001/software/fftw-3.3.8 CC=icc F77=ifort MPICC=mpiicc --enable-shared --enable-static --enable-mpi --enable-threads --enable-avx --enable-avx2 --enable-openmp
-make -j 8 
-make install
-编译单精度版本
-./configure --prefix=/public/home/users/shu001/software/fftw-3.3.8 CC=icc F77=ifort MPICC=mpiicc --enable-float --enable-sse --enable-shared --enable-static --enable-mpi --enable-threads --enable-avx --enable-avx2 --enable-openmp
-make -j 8 
+./configure CC=icc CXX=icpc FC=ifort --prefix=/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4
+make 
 make install
 </code></pre>
 </div></div>
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install QE</b></h2>
+<pre class="highlight"><code>
+export MKLROOT=/THFS/opt/intel/composer_xe_2013_sp1.3.174/mkl
+export FFT_LIBS="-L$MKLROOT/lib/intel64"
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
+make all
+make install
+
+or
+export MKLROOT=/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl
+export MKL_PATH=$MKLROOT/lib/intel64
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
+make all
+make install
+
+赝势下载 https://www.quantum-espresso.org/pseudopotentials
+</code></pre>
+</div></div>
 
 </div>
 
@@ -94,3 +101,4 @@ make install
 
 	</body>
 </html>
+

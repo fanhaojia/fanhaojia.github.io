@@ -44,6 +44,7 @@
 <pre class="highlight"><code>
 source /THFS/opt/intel/composer_xe_2013_sp1.3.174/bin/compilervars.sh intel64
 source /THFS/opt/intel/composer_xe_2013_sp1.3.174/mkl/bin/mklvars.sh intel64
+source /THFS/opt/intel/impi/5.0.2.044/intel64/bin/mpivars.sh intel64
 
 or
 source /THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/bin/compilervars.sh intel64
@@ -67,19 +68,40 @@ make install
 <h2><b>Install QE</b></h2>
 <pre class="highlight"><code>
 export MKLROOT=/THFS/opt/intel/composer_xe_2013_sp1.3.174/mkl
-export FFT_LIBS="-L$MKLROOT/lib/intel64"
-./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1/2013 F90=ifort MPIF90=mpiifort MPIF77=mpiifort MPICC=mpiicc F77=ifort FC=ifort BLAS_LIBS="-Wl,--start-group $MKLROOT/lib/intel64/libmkl_intel_lp64.a $MKLROOT/lib/intel64/libmkl_sequential.a $MKLROOT/lib/intel64/libmkl_core.a -Wl,--end-group" SCALAPACK_LIBS="-Wl,--start-group $MKLROOT/lib/intel64/libmkl_scalapack_lp64.a $MKLROOT/lib/intel64/libmkl_blacs_intelmpi_lp64.a -Wl,--end-group"
+
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
+
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1_mpif90 FC=ifort CC=icc MPIF90=mpif90 --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="$MKLROOT/lib/intel64/libmkl_blas95_lp64.a" LAPACK="$MKLROOT/lib/intel64/libmkl_lapack95_lp64.a" SCALAPACK_LIBS="$MKLROOT/lib/intel64/libmkl_scalapack_lp64.a -lmkl_blacs_intelmpi_lp64" 
+
 make all
 
 or
 export MKLROOT=/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl
-export MKL_PATH=$MKLROOT/lib/intel64
-./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1/2018 FC=ifort CC=icc MPIF90=mpiifort --with-libxc="yes" --with-libxc-prefix="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4" --with-libxc-include="/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4/include" 
+--enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64"
 make all
+
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1/2018 FC=ifort CC=icc MPIF90=mpiifort --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_ilp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_ilp64 -lmkl_blacs_intelmpi_ilp64" FFT_LIBS=/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
 
 赝势下载：<a href="https://www.quantum-espresso.org/pseudopotentials">https://www.quantum-espresso.org/pseudopotentials</a>
 参数注释：<a href="https://www.quantum-espresso.org/Doc/INPUT_PW.html">https://www.quantum-espresso.org/Doc/INPUT_PW.html</a>
 计算例子：<a href="https://gitlab.com/QEF/q-e/tree/master/PW/examples">https://gitlab.com/QEF/q-e/tree/master/PW/examples</a>
+
+
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1/2013 
+MPIF90=mpif90 F90=ifort F77=ifort CC=icc BLAS_LIBS="-lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
+LAPACK_LIBS=/THFS/opt/intel/composer_xe_2013.0.079/mkl/lib/intel64/libmkl_lapack95_lp64.a
+SCALAPACK_LIBS=/THFS/opt/intel/composer_xe_2013.0.079/mkl/lib/intel64/libmkl_scalapack_lp64.a
+FFT_LIBS=/THFS/opt/intel/composer_xe_2013.0.079/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
+
+
+./configure --prefix=/THFS/home/gk_ahu_ljy/softwares/qe-6.4.1/2013 
+MPIF90=mpif90 F90=gfortran F77=gfortran CC=cc 
+BLAS_LIBS="-lmkl_gf_lp64  -lmkl_sequential -lmkl_core"
+SCALAPACK_LIBS="-lmkl_scalapack_lp64 -lmkl_blacs_openmpi_lp64"
+
+
 </code></pre>
 </div></div>
 

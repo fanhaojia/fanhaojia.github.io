@@ -75,6 +75,37 @@ make install
 </code></pre>
 </div></div>
 
+<h2><b>wannier90编译</b></h2>
+<p>拓扑材料计算和GW计算需要用到wannier interpretation，建议安装</p>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+tar -zxvf wannier90-2.1.0.tar.gz
+cd wannier90-2.1.0
+cp ./config/make.inc.ifort ./make.inc
+vi make.inc
+"MKLROOT =/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl
+LIBDIR = $MKLROOT/lib/intel64"
+make all
+</code></pre>
+</div></div>
+
+<h2><b>vasp.5.4.4编译</b></h2>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+tar -zxvf vasp.5.4.4.tar.gz
+tar -zxvf vasp.5.lib.tar.gz
+cd vasp.5.4.4
+下载http://cms.mpi.univie.ac.at/patches/patch.5.4.4.16052018.gz 并上传至vasp.5.4.4
+patch -p0 < patch.5.4.4.16052018
+cp arch/makefile.include.linux_intel ./makefile.incule 
+vi makefile.incule
+""
+make all
+</code></pre>
+</div></div>
+
 
 </div>
 

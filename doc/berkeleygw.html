@@ -47,12 +47,36 @@ source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
 </code></pre>
 </div></div>
 
+<h2><b>FFTW编译</b></h2>
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
-<h2><b>Install QE</b></h2>
 <pre class="highlight"><code>
-export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
-./configure --prefix=/public/home/users/shu001/software/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort --enable-parallel --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a --with-libxc="yes" --with-libxc-prefix="/public/home/users/shu001/software/libxc-4.3.4/" --with-libxc-include="/public/home/users/shu001/software/libxc-4.3.4/include" 
+source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
+source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
+wget http://www.fftw.org/fftw-3.3.8.tar.gz
+tar -zxvf fftw-3.3.8.tar.gz
+cd fftw-3.3.8
+编译双精度版本
+./configure --prefix=/public/home/users/shu001/software/fftw-3.3.8 CC=icc F77=ifort MPICC=mpiicc --enable-shared --enable-static --enable-mpi --enable-threads --enable-avx --enable-avx2 --enable-openmp
+make -j 8 
+make install
+编译单精度版本
+./configure --prefix=/public/home/users/shu001/software/fftw-3.3.8 CC=icc F77=ifort MPICC=mpiicc --enable-float --enable-sse --enable-shared --enable-static --enable-mpi --enable-threads --enable-avx --enable-avx2 --enable-openmp
+make -j 8 
+make install
+</code></pre>
+</div></div>
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install hdf5</b></h2>
+<pre class="highlight"><code>
+tar zxvf hdf5-1.10.5.tar.gz
+cd hdf5-1.10.5 
+./configure --prefix=/public/home/users/shu001/software/hdf5-1.10.5 CC=mpiicc FC=mpiifort CXX=mpiicpc --enable-fortran --enable-parallel --enable-shared
+make
+make install
 </code></pre>
 </div></div>
 
@@ -64,7 +88,44 @@ tar -zxvf BerkeleyGW-2.1.tar.gz
 cd BerkeleyGW-2.1 
 export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
 cp config/babbage.nersc.gov.mk arch.mk
-cp flavor_cplx.mk flavor.mk
+vi arch.mk
+"
+COMPFLAG  = -DINTEL
+PARAFLAG  = -DMPI
+MATHFLAG  = -DUSESCALAPACK -DHDF5 -DUNPACKED -DUSEFFTW3
+FCPP    = /usr/bin/cpp -ansi -ffreestanding
+F90free = mpiifort -free
+#LINK    = mpiifort -i-static -openmp
+#LINK    = mpiifort -qopenmp
+FOPTS   = -O3 -no-prec-div
+FNOOPTS = -O2 -no-prec-div
+MOD_OPT = -module
+INCFLAG = -I
+C_PARAFLAG = -DPARA -DMPICH_IGNORE_CXX_SEEK
+CC_COMP = mpiicpc
+C_COMP  = mpiicc
+C_LINK  = mpiicpc
+C_OPTS  = -O3
+C_DEBUGFLAG =
+REMOVE  = /bin/rm -f
+FFTWPATH     = /public/home/users/shu001/software/fftw-3.3.8
+FFTWLIB      = $(FFTWPATH)/lib/libfftw3.a
+FFTWINCLUDE  = $(FFTWPATH)/include
+#MKLROOT      = /public/home/users/app/compiler/intel-2019.4/compilers_and_libraries_2019.4.243/linux/mkl
+MKLROOT      = /public/software//compiler/intel/intel-compiler-2017.5.239/mkl
+MKLPATH      = $(MKLROOT)/lib/intel64
+LAPACKLIB    = -Wl,--start-group $(MKLPATH)/libmkl_intel_lp64.a $(MKLPATH)/libmkl_sequential.a \
+               $(MKLPATH)/libmkl_core.a $(MKLPATH)/libmkl_blacs_intelmpi_lp64.a \
+               -Wl,--end-group -lpthread
+SCALAPACKLIB = $(MKLPATH)/libmkl_scalapack_lp64.a
+HDF5DIR      = /public/home/users/shu001/software/hdf5-1.10.5
+HDF5LIB      = $(HDF5DIR)/lib/libhdf5hl_fortran.a $(HDF5DIR)/lib/libhdf5_hl.a \
+               $(HDF5DIR)/lib/libhdf5_fortran.a $(HDF5DIR)/lib/libhdf5.a -lz
+HDF5INCLUDE  = $(HDF5DIR)/include
+TESTSCRIPT = sbatch hbar.scr
+#TESTSCRIPT = bsub hbar.scr
+"
+make all-flavors
 
 </code></pre>
 </div></div>

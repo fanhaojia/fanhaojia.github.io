@@ -51,8 +51,6 @@ source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
 <pre class="highlight"><code>
-source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
-source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
 wget http://www.fftw.org/fftw-3.3.8.tar.gz
 tar -zxvf fftw-3.3.8.tar.gz
 cd fftw-3.3.8
@@ -134,7 +132,114 @@ make all-flavors
 </code></pre>
 </div></div>
 
+<h2><b>FFTW-2.1.5编译</b></h2>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+tar -zxvf fftw-2.1.5.tar.gz
+cd fftw-2.1.5
+./configure --prefix=/public/home/users/shu001/software/fftw-2.1.5 CC=icc F77=ifort MPICC=mpiicc --enable-shared --enable-static --enable-mpi --enable-threads
+make 
+make install
+</code></pre>
+</div></div>
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install Berkeley GW</b></h2>
+<pre class="highlight"><code>
+tar -zxvf BerkeleyGW-1.0.4.tar.gz
+cd BerkeleyGW-1.0.4
+vi arch.mk
+"
+# Information about how to set the various options here.
+# Ideally you can use a file already created for your platform.
+# Otherwise, you can work from the one most similar that is here.
+# select the compiler you are using.
+# if you have a different one than these, modifications in Common/compiler.h
+# and Common/common-rules.mk will be necessary.
+COMPFLAG  = -DINTEL
+# Use this to compile Fortran in parallel with MPI. Leave blank for serial.
+PARAFLAG  = -DMPI
+# -DUSESCALAPACK enables usage of ScaLAPACK (required in parallel for BSE).
+# -DUSEESSL uses ESSL instead of LAPACK in some parts of the code.
+# -DUNPACKED uses unpacked rather packed representation of the Hamiltonian
+# in EPM. Packed LAPACK operations give bad results eventually in Si-EPM kernel
+# test for ACML and Cray LibSci sometimes.
+MATHFLAG  = -DUSESCALAPACK -DUNPACKED
+# For Fortran and C++. -DDEBUG enables extra checking. -DVERBOSE writes extra information.
+DEBUGFLAG = -DVERBOSE
+# Same, but for C. Currently, no use of VERBOSE in the code.
+C_DEBUGFLAG = -DDEBUG
+# the command for the preprocessor. -ansi should generally be used.
+# add -P if the Fortran compiler will not accept indication of line numbers.
+FCPP    = /usr/bin/cpp -P -ansi
+# Fortran compiler and its flags for F90 and f90 files (free source form)
+F90free = mpiifort -free
+# Fortran compiler and any flag required for linking
+LINK    = mpiifort
+# Fortran optimization flags. The levels below will generally work.
+FOPTS   = -O3 -zero -r8 
+# Fortran optimization flags for epsilon_main and sigma_main which can have
+# trouble in high optimization due to their long length. If below does not
+# work, try -O2.
+FNOOPTS = $(FOPTS)
+# Fortran compiler flag to specify location where module should be created.
+MOD_OPT = -module 
+# Fortran compiler flag to specify where to look for modules.
+INCFLAG = -I
+# Use this to compile C++ in parallel with MPI. Leave blank for serial.
+# MPICH requires also -DMPICH_IGNORE_CXX_SEEK.
+C_PARAFLAG  = -DPARA -DMPICH_IGNORE_CXX_SEEK
+# C++ compiling command and any needed flags
+CC_COMP = mpicxx
+# C compiling command and any needed flags
+C_COMP  = mpicc
+# C/C++ link command and any needed flags
+C_LINK  = mpicxx
+# C/C++ optimization flags
+C_OPTS  = -O3
+# Note: for Intel compilers, it is equivalent to use icc or icpc on C++ files.
+# command to remove, for make clean
+REMOVE  = rm -f
+# Math Libraries
+# path for FFTW2 library, used in lines below
+FFTWPATH     = /public/home/users/shu001/software/fftw-2.1.5
+# link line for FFTW2 library. sometimes needs to be -ldfftw
+FFTWLIB      = -L$(FFTWPATH)/lib -lfftw
+# where include file fftw_f77.i from FFTW is located.
+# Sometimes supercomputer installations will not have it.
+# If not, find it online and copy it
+# (e.g. http://www.fifi.org/doc/fftw-dev/fortran/fftw_f77.i)
+FFTWPATH     = /public/home/users/shu001/software/fftw-2.1.5
+FFTWLIB      = $(FFTWPATH)/lib/libfftw.a
+FFTWINCLUDE  = $(FFTWPATH)/fortran
+# Flags for performance profiling with an external tool such as IPM
+PERFORMANCE  = 
+LAPACKLIB    =  -static_mpi -i-static -L /public/software//compiler/intel/intel-compiler-2017.5.239/mkl/lib/intel64 \
+               -Wl,--start-group \
+               -lmkl_intel_lp64 -lmkl_sequential -lmkl_core \
+               -Wl,--end-group \
+			   -lpthread
+               #-lguide  -lpthread 
+SCALAPACKLIB =  -static_mpi -i-static -L /public/software//compiler/intel/intel-compiler-2017.5.239/mkl/lib/intel64 \
+                -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 
+# Command to submit testsuite job script from testsuite directory.
+# qsub is for PBS. If no scheduler, put make check-parallel here.
+# In serial, delete this line.
+#make check-parallel
+#TESTSCRIPT = qsub {architecture}.scr
+"
+cp flavor_real.mk flavor.mk
+make all
+
+然后编译complex版本
+make clean
+cp flavor_real.mk flavor.mk
+make all
+
+</code></pre>
+</div></div>
 
 </div>
 

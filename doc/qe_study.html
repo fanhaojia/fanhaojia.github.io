@@ -197,16 +197,34 @@ GaSe_band.eps  #output figure
 1.0 -3.6511   #Axis interval, Energy shift
 </code></pre>
 </div></div>
-<p>plotbands.x < plotband.in >plot.out </p>
+<p>plotband.x < plotband.in >plot.out </p>
 
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
-<h2><b>scf.in</b></h2>
+<h2><b> </b></h2>
 <pre class="highlight"><code>
-
+Wannier90: Execution started on 22Oct2018 at 17:08:45
+Exiting.......
+param_get_projection: too many projections defined
 </code></pre>
 </div></div>
+这是在计算wannier的时候遇到的报错，是因为投影轨道忘了乘以原子数。
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>in.win mp_grid 6 6 1</b></h2>
+<pre class="highlight"><code>
+~/software/vasp/wannier90-2.1.0/utility/kmesh.pl 6 6 6
+</code></pre>
+</div></div>
+refer Quantum Espresso报错指南
+https://www.jianshu.com/p/ee01b499ce25
+
+
+
+
 
 </div>
 </div></section>

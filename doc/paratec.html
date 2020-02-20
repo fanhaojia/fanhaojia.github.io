@@ -66,6 +66,8 @@ tar -zxvf fftw-2.1.5.tar.gz
 cd fftw-2.1.5
 ./configure --prefix=/public1/home/sc50037/fftw-2.1.5 CC=icc FC=ifort MPICC=mpiicc F77=mpif77  --enable-mpi  --enable-openmp  --enable-threads
 make 
+make install
+./configure --prefix=/public/home/users/shu001/software/fftw/2.1.5 CC=icc CFLAGS= -O2 FC=ifort MPICC=mpiicc F77=mpif77 --enable-float --enable-mpi --enable-shared --enable-threads
 </code></pre>
 </div></div>
 

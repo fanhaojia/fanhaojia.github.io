@@ -132,7 +132,8 @@ int add(int a,int b)
             <div class="panel-body">
 			给sub.sh文件赋予可执行权限: chmod +x sub.sh
 		<br>比较file1和file2文件的不同: diff file1 file2
-		<br>查找大于100M的文件 find . -type f -size +100M
+		<br>查找大于100M的文件 find . -type f -size +100M 
+		<br>查找大于100M的文件并删除 find . -type f -size +100M |xargs rm -rf
 		<br>查看当前目录下每个文件的大小: du -sh *
 		<br> useradd -d /public/home/zhongyuyan zhongyuyan 
 		<br> passwd zhongyuyan
@@ -142,6 +143,15 @@ int add(int a,int b)
 <br>/etc/init.d/pbs_server restart
 <br>/etc/init.d/pbs_mom restart
 <br>/etc/init.d/pbs_sched restart
+<br>
+<br> telnet icqms.shu.edu.cn 80
+<br> service httpd restart/start/status
+
+<br>mkdir /home/tmp
+<br>sudo mount -t auto -o loop R2017b_glnxa64.iso /home/temp
+<br>umount /home/temp
+<br>如果umount失败：fuser -m /home/temp 查找该进程号  ps aux |grep 1338 然后 kill -9 1338
+
             </div>
         </div>
     </div>

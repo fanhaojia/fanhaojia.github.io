@@ -57,6 +57,45 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#system">
+                服务器管理
+                </a>
+            </h4>
+        </div>
+        <div id="system" class="panel-collapse collapse in">
+            <div class="panel-body">
+		<br> useradd -d /public/home/someone someone 
+		<br> passwd someone
+		<br> userdel someone
+		<br>同步登陆节点的passwd到计算节点：
+<br>#!/bin/bash
+<br>for i in `seq 1 6`
+<br>do
+<br>for j in passwd shadow group
+<br>do
+<br>scp /etc/$j node$i:/etc/
+<br>done
+<br>done
+		<br>
+		<br>重启server与计算节点PBS服务：
+<br>/etc/init.d/pbs_server restart
+<br>/etc/init.d/pbs_mom restart
+<br>/etc/init.d/pbs_sched restart
+<br>
+<br> telnet icqms.shu.edu.cn 80
+<br> service httpd restart/start/status
+
+<br>mkdir /home/tmp
+<br>sudo mount -t auto -o loop R2017b_glnxa64.iso /home/temp
+<br>umount /home/temp
+<br>如果umount失败：fuser -m /home/temp 查找该进程号  ps aux |grep 1338 然后 kill -9 1338
+
+            </div>
+        </div>
+    </div>	
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion"  href="#Cproject">
                 Linux下的c语言工程
             </a>
@@ -135,23 +174,7 @@ int add(int a,int b)
 		<br>查找大于100M的文件 find . -type f -size +100M 
 		<br>查找大于100M的文件并删除 find . -type f -size +100M |xargs rm -rf
 		<br>查看当前目录下每个文件的大小: du -sh *
-		<br> useradd -d /public/home/zhongyuyan zhongyuyan 
-		<br> passwd zhongyuyan
-		<br> userdel zhongyuyan
 		<br>
-		<br>重启server与计算节点PBS服务：
-<br>/etc/init.d/pbs_server restart
-<br>/etc/init.d/pbs_mom restart
-<br>/etc/init.d/pbs_sched restart
-<br>
-<br> telnet icqms.shu.edu.cn 80
-<br> service httpd restart/start/status
-
-<br>mkdir /home/tmp
-<br>sudo mount -t auto -o loop R2017b_glnxa64.iso /home/temp
-<br>umount /home/temp
-<br>如果umount失败：fuser -m /home/temp 查找该进程号  ps aux |grep 1338 然后 kill -9 1338
-
             </div>
         </div>
     </div>

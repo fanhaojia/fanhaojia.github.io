@@ -193,7 +193,25 @@ int add(int a,int b)
             </div>
         </div>
     </div>	
-
+	<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"  href="#unzip">
+            Shell
+                </a>
+            </h4>
+        </div>
+        <div id="unzip" class="panel-collapse collapse">
+            <div class="panel-body">
+            <br>ee=`awk '/free  energy/ {print $5}' OUTCAR`;echo $ee
+			<br>ee=`awk 'NR==1{print}' OUTCAR`;echo $ee
+			<br>sed -n "2p" merge.in | awk '{print $1}' 打印文本merge.in的第二行第一列; 这里 p ：打印
+			<br>a=`echo "scale=16;(3.7400689681604917)*($i)" | bc`
+			<br>v=0.003;a=$(awk -v num=$v 'BEGIN{printf("%.5f\n", num*(12))}');echo $a
+			<br>q1_final=$(awk -v num1=$q1 -v num2=$k1 'BEGIN{printf("%.5f\n", num1*num2)}');echo $q1_final
+            </div>
+        </div>
+    </div>	
 </div>
 
 

@@ -44,11 +44,40 @@
 <pre class="highlight"><code>
 tar -zxvf fftw-2.1.5.tar.gz 
 cd fftw-2.1.5
-./configure --prefix=/public/home/users/shu001/software/fftw-2.1.5 CC=icc MPICC=mpiicc F77=ifort --enable-threads --enable-mpi --enable-static --enable-shared
+./configure --prefix=/public/home/users/shu001/software/fftw/fftw-2.1.5 
+CC=icc F77=ifort CPP=icpc --with-openmp --enable-static --enable-shared
 make 
 make install
 </code></pre>
 </div></div>
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>install fftw</b></h2>
+<pre class="highlight"><code>
+tar -zxvf fftw-2.1.5.tar.gz 
+cd fftw-2.1.5
+cp -r fftw-2.1.5 float
+mv fftw-2.1.5 double
+cd float
+./configure --prefix=/public/home/users/shu001/software/fftw-2.1.5/float
+CC=icc MPICC=mpiicc F77=ifort --enable-threads --enable-mpi --enable-static --enable-shared --enable-float
+make 
+make install
+
+cd double
+./configure --prefix=/public/home/users/shu001/software/fftw-2.1.5/double
+CC=icc MPICC=mpiicc F77=ifort --enable-threads --enable-mpi --enable-static --enable-shared
+make 
+make install
+</code></pre>
+</div></div>
+
+
+
+./configure --prefix=/public/home/users/shu001/software/fftw-2.1.5_gfortran2 
+CC=gcc MPICC=mpicc F77=gfortran --enable-threads --enable-shared 
+--enable-static --enable-mpi --enable-float --enable-i386-hacks
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
@@ -143,7 +172,7 @@ FINC            = $(FFTW_DAVEGP_INC) $(FFTW_HEADER_INC)
 # libraries
 SHAREDLIB	= $(DEPTH)/src/shared/libshared.a
 MATHLIBS        = -static_mpi -L $(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 /public/home/users/shu001/software/fftw-2.1.5/lib/libfftw.a
-
+#-L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib -lifport -lifcoremt -limf -lsvml -lm -lipgo -lirc -lpthread -lirc_s -ldl
 #MATHLIBS        = -static_mpi -L $(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -L $(FFTW_DIR)/lib -lfftw -lrt -lpthread -openmp -ldl
 
 MAKEOPTIONS = --no-print-directory
@@ -184,6 +213,20 @@ make paratec
 make tools
 
 ###not used here###
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>install fftw</b></h2>
+<pre class="highlight"><code>
+tar -zxvf fftw-2.1.5.tar.gz 
+cd fftw-2.1.5
+./configure --prefix=/public/home/users/shu001/Berkely_tests/fftw-2.1.5_gfortran
+CC=cc MPICC=cc CXX=g++ CPP='cc -E' F77=gfortran --enable-threads --enable-shared --enable-static --enable-mpi
+make 
+make install
+</code></pre>
+</div></div>
+
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
 <h2><b>install gcc</b></h2>

@@ -59,6 +59,43 @@ which gcc
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>install gcc</b></h2>
+<pre class="highlight"><code>
+tar xzvf gcc-9.2.0.tar.gz 
+cd gcc-9.2.0/
+#下载编译所需的依赖包
+联网情况下：./contrib/download_prerequisites
+verify报错或断网情况，手动下载和安装：
+从 ftp://gcc.gnu.org/pub/gcc/infrastructure/
+下载gmp-6.1.0.tar.bz2  isl-0.18.tar.bz2  mpc-1.0.3.tar.gz  mpfr-3.1.4.tar.bz2
+将它们解压到gcc-9.2.0目录下
+cd mpc-1.0.3
+./configure --prefix=$path_of_mpc-1.0.3
+make 
+make install
+依次安装gmp mpfr
+安装isl
+export LOCAL_LIBS=/public/home/users/shu001/local/
+mkdir $LOCAL_LIBS
+export PATH=$LOCAL_LIBS/bin:$LOCAL_LIBS/usr/local/bin/:$PATH
+
+cd isl-0.18
+./configure --prefix=$LOCAL_LIBS --with-gmp-prefix=/public/home/users/shu001/software/gcc-9.2.0/gmp-6.1.0 --disable-multilib
+
+mkdir build-gcc-9.2.0
+cd build-gcc-9.2.0/
+../configure --disable-multilib --prefix=/public/home/users/shu001/software/gcc-9.2.0/build-gcc-9.2.0 
+--with-gmp=../gmp-6.1.0 --with-mpfr=../mpfr-3.1.4 --with-mpc=../mpc-1.0.3 --with-isl=../isl-0.18
+make -j4
+make install
+export PATH=/home/../gcc-9.2.0/bin:$PATH
+export LD_LIBRARY_PATH=/home/../gcc-9.2.0/lib64:$LD_LIBRARY_PATH
+which gcc
+</code></pre>
+</div></div>
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <h2><b>install openmpi</b></h2>
 <pre class="highlight"><code>
 tar xzvf openmpi-4.0.2.tar.gz 
@@ -70,6 +107,8 @@ export PATH=/home/.../openmpi-4.0.2/bin:$PATH
 export LD_LIBRARY_PATH=/home/.../openmpi-4.0.2/lib:$LD_LIBRARY_PATH
 </code></pre>
 </div></div>
+
+
 
 
 <div class="language-plaintext highlighter-rouge">

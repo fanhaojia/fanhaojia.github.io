@@ -43,9 +43,9 @@
 <h2><b>install fftw</b></h2>
 <pre class="highlight"><code>
 tar -zxvf fftw-2.1.5.tar.gz 
-cd fftw-2.1.5
-./configure --prefix=/public/home/users/shu001/software/fftw/fftw-2.1.5 
-CC=icc F77=ifort CPP=icpc --with-openmp --enable-static --enable-shared
+cd fftw-2.1.5i
+./configure --prefix=/public/home/users/shu001/software/fftw/fftw-2.1.5i 
+CC=icc MPICC=mpiicc CXX=icpc F77=ifort --enable-threads --enable-mpi --enable-static --enable-shared
 make 
 make install
 </code></pre>

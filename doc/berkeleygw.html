@@ -47,6 +47,20 @@ source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
 </code></pre>
 </div></div>
 
+<h2><b>hdf5-编译</b></h2>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+tar zxvf hdf5-1.10.5.tar.gz
+cd hdf5-1.10.5 
+./configure CC=mpiicc FC=mpiifort CXX=mpiicpc \
+--enable-fortran --enable-parallel --enable-shared \
+--prefix=$HOME/software/hdf5/1.10.4 
+make
+make install
+</code></pre>
+</div></div>
+
 <h2><b>FFTW编译</b></h2>
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
@@ -68,13 +82,13 @@ make install
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
-<h2><b>Install hdf5</b></h2>
+<h2><b>hdf1.12编译</b></h2>
 <pre class="highlight"><code>
-tar zxvf hdf5-1.10.5.tar.gz
-cd hdf5-1.10.5 
-./configure --prefix=/public/home/users/shu001/software/hdf5-1.10.5 CC=mpiicc FC=mpiifort CXX=mpiicpc --enable-fortran --enable-parallel --enable-shared
-make
-make install
+cd hdf5-1.12.0
+mkdir install_dir
+./configure --prefix=/public/home/users/shu002/software/hdf5-1.12.0/install_dir CC=mpiicc FC=mpiifort --enable-parallel --enable-fortran --enable-shared
+make all install
+虽然可以安装成功，但是编译BerkeleyGW的时候似乎报错。所以我最后使用了hdf5-1.10.5.tar.gz
 </code></pre>
 </div></div>
 

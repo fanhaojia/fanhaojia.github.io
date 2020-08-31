@@ -37,15 +37,6 @@
 				
 <section class="wrapper style1 align-left">
 <div class="inner">
-<div class="language-plaintext highlighter-rouge">
-<div class="highlight">
-<h2><b>Libxc编译</b></h2>
-<pre class="highlight"><code>
-./configure CC=icc FC=ifort F77=ifort --prefix=/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4
-make 
-make install
-</code></pre>
-</div></div>
 
 
 <div class="language-plaintext highlighter-rouge">
@@ -59,11 +50,41 @@ source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>hdf1.12编译</b></h2>
+<pre class="highlight"><code>
+cd hdf5-1.12.0
+mkdir install_dir
+./configure --prefix=/public/home/users/shu002/software/hdf5-1.12.0/install_dir CC=mpiicc FC=mpiifort --enable-parallel --enable-fortran --enable-shared
+make all install
+</code></pre>
+</div></div>
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Libxc5.0编译</b></h2>
+<pre class="highlight"><code>
+./configure CC=icc FC=ifort --prefix=/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4
+make 
+make install
+</code></pre>
+</div></div>
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <h2><b>Install QE-6.5</b></h2>
 <pre class="highlight"><code>
 export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
 
-./configure --prefix=/public/home/users/shu001/software/qe/qe-6.5 --enable-parallel MPIF90=mpiifort F90=ifort CC=icc --with-scalapack="intel" BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a --with-hdf5="/public/home/users/shu001/software/hdf5-1.10.5" --with-libxc=yes --with-libxc-prefix=/public/home/users/shu001/software/libxc-4.3.4 --with-libxc-include=/public/home/users/shu001/software/libxc-4.3.4/include
+./configure --prefix=/public/home/users/shu001/software/qe/qe-6.5 
+ MPIF90=mpiifort F90=ifort CC=icc --enable-parallel --with-scalapack="intel"
+ BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
+SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
+LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" 
+FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
+--with-hdf5="/public/home/users/shu001/software/hdf5-1.10.5" 
+--with-libxc=yes --with-libxc-prefix=/public/home/users/shu001/software/libxc-4.3.4 
+--with-libxc-include=/public/home/users/shu001/software/libxc-4.3.4/include
 vi make.inc
 在LD_LIBS=添加libxc/lib的路径
 
@@ -72,6 +93,15 @@ make all
 </code></pre>
 </div></div>
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Libxc-4.3.4编译</b></h2>
+<pre class="highlight"><code>
+./configure CC=icc FC=ifort --prefix=/THFS/home/gk_ahu_ljy/softwares/libxc-4.3.4
+make 
+make install
+</code></pre>
+</div></div>
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
@@ -80,7 +110,7 @@ make all
 export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
 
 ./configure --prefix=/public/home/users/shu001/software/qe-6.4.1 FC=ifort CC=icc MPIF90=mpiifort 
---enable-parallel --with-scalapack="intel"  MPIF90=mpiifort F90=ifort CC=icc
+--enable-parallel --with-scalapack="intel"  
 BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
 SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
 LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" 

@@ -209,6 +209,11 @@ int add(int a,int b)
 			<br>a=`echo "scale=16;(3.7400689681604917)*($i)" | bc`
 			<br>v=0.003;a=$(awk -v num=$v 'BEGIN{printf("%.5f\n", num*(12))}');echo $a
 			<br>q1_final=$(awk -v num1=$q1 -v num2=$k1 'BEGIN{printf("%.5f\n", num1*num2)}');echo $q1_final
+			<br>
+			<br>vaspkit <<EOF
+			<br>21
+			<br>211
+			<br>EOF
             </div>
         </div>
     </div>	

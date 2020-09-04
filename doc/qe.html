@@ -72,6 +72,27 @@ make install
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>Install QE-6.6</b></h2>
+<pre class="highlight"><code>
+export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
+
+./configure --prefix=/public/home/users/shu001/software/qe/qe-6.6 
+ MPIF90=mpiifort F90=ifort CC=icc --enable-parallel 
+BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
+SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
+LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" 
+FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
+
+
+vi make.inc
+添加-D DFTI for DFTI (Intel MKL library)
+make all
+
+</code></pre>
+</div></div>
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <h2><b>Install QE-6.5</b></h2>
 <pre class="highlight"><code>
 export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl

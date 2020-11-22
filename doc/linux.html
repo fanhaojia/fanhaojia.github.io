@@ -156,6 +156,7 @@ int add(int a,int b)
 		<br>tar.xz文件解压: 先 xz -d xxx.tar.xz 将 xxx.tar.xz解压成 xxx.tar 然后，再用 tar xvf xxx.tar
 		<br>tar.bz2文件解压: tar -jxvf file.tar.bz2
 		<br>.7z文件解压: 7za x file.7z
+		<br> zip -q -r test.zip ./test
             </div>
         </div>
     </div>
@@ -215,6 +216,22 @@ int add(int a,int b)
 			<br>211
 			<br>EOF
             </div>
+            <div class="panel-body">	
+#!/bin/bash			
+<br>rm log
+<br>grep T= report >>log
+<br>nstep=`awk '{print NR}' log|tail -n1`
+<br>echo $nstep
+<br>rm loglog
+<br>for((i=1;i<=$nstep;i++));
+<br>do
+<br>index=`sed -n $i"p" log | awk '{print $1}'`
+<br>tt=`sed -n $i"p" log | awk '{print $3}'`
+<br>energy=`sed -n $i"p" log | awk '{print $5}'`
+<br>echo $index  $tt   $energy>>loglog
+<br>echo $index
+<br>done
+</div>
         </div>
     </div>	
 </div>

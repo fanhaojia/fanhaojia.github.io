@@ -49,11 +49,12 @@ Windows先安装Git，安装完成后，在开始菜单里找到“Git”->“Gi
 $ git config --global user.name "hahaha"
 $ git config --global user.email "hahaha@gmail.com"
 
-$ cd ~/.ssh
+
 $ ssh-keygen -t rsa -C “hahaha@gmail.com”
 按3个回车，密码为空
 最后得到了两个文件：id_rsa 和id_rsa.pub
 去https//github.com网站 找到setting里SSH and GPG keys添加“id_rsa.pub”里面的公钥
+$cd ~/.ssh
 
 测试
 $ ssh git@github.com
@@ -66,6 +67,16 @@ PTY allocation request failed这个警告无伤大雅，它会出现是当使用
 基于 SSH 的 Git 不需要一个 tty, GitHub（GitLab 也应该一样）的 SSH 服务被配置成拒绝分配一个 tty 给入站连接。
 你可以告诉 SSH 不要请求一个 tty，使用ssh -T的选项
 $ ssh -T git@github.com
+
+
+$ ssh fanhaojia@github.com
+The authenticity of host 'github.com (140.82.114.4)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com,140.82.114.4' (RSA) to the list of known hosts.
+fanhaojia@github.com: Permission denied (publickey).
+
+
 </code></pre>
 </div></div>
 

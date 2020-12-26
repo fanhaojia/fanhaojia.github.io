@@ -45,7 +45,7 @@
 <main id="main">
     <div class="content inner">
 				<header class="page-header">
-					<center><h2 class="page-title">&nbsp; Si relaxation</h2></center>
+					<center><h2 class="page-title">&nbsp; Ordinary_command</h2></center>
 				</header>
 				
 <div class="lan1"></div>
@@ -55,9 +55,9 @@
 mpirun $PW_EXEC -nk 4 < input > ./report
 <br>rm pwscf.wfc*
 <br>rm pwscf.save/wfc*
-<br>check the energy convergence:
+<br><b>check the energy convergence:</b>
 <br>   grep "!    total energy" report
-<br>get contcar
+<br><b>get contcar</b>
 <br>awk  '/Begin final coordinates/,/End final coordinates/{print $0}' report
 
  

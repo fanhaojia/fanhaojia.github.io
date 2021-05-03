@@ -44,10 +44,18 @@
 <pre class="highlight"><code>
 tar -zxvf fftw-2.1.5.tar.gz 
 cd fftw-2.1.5i
-./configure --prefix=/public/home/users/shu001/software/fftw/fftw-2.1.5i 
-CC=icc MPICC=mpiicc CXX=icpc F77=ifort --enable-threads --enable-mpi --enable-static --enable-shared
+./configure --prefix=/public/home/users/shu003/software/FFTW/fftw-2.1.5i 
+F77=ifort CC=mpicc CFLAGS="-O3" CXX=g++ CPP="mpicc -E" --enable-threads --enable-mpi --enable-static --enable-shared
 make 
 make install
+
+source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
+source /public/software/profile.d/mpi_intelmpi-2017.4.239.sh
+
+
+./configure --prefix=/public/home/users/shu003/software/paratec_new_final_new/fftw-2.1.5i 
+CC=mpicc CFLAGS=-O3 CPP="mpicc -E" CXX=g++ CXXCPP="g++ -E" CXXFLAGS="-g -O2" F77=ifort FFLAGS=-g MPICC=mpicc
+--enable-threads --enable-mpi --enable-static --enable-shared
 </code></pre>
 </div></div>
 

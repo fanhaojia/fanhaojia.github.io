@@ -41,6 +41,53 @@
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install QE-6.7.0</b></h2>
+<pre class="highlight"><code>
+export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
+
+./configure --prefix=/public/home/users/shu001/software/qe/qe-6.7.0 
+ MPIF90=mpiifort F90=ifort CC=icc --enable-parallel 
+BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
+SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
+LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" 
+FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
+--with-hdf5="/home/shunbohu/myhome/software/hdf5-1.10.5" 
+
+vi make.inc
+添加-D__DFTI for DFTI (Intel MKL library)
+添加-D__FFTW for internal fftw
+make all
+
+</code></pre>
+</div></div>
+
+<h2><b>FFTW编译</b></h2>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+wget http://www.fftw.org/fftw-3.3.8.tar.gz
+tar -zxvf fftw-3.3.8.tar.gz
+cd fftw-3.3.8
+编译双精度版本
+./configure --prefix=/public/home/users/shu001/software/fftw-3.3.8 CC=icc F77=ifort MPICC=mpiicc --enable-shared --enable-static --enable-mpi --enable-threads --enable-avx --enable-avx2 --enable-openmp
+make -j 8 
+make install
+编译单精度版本
+./configure --prefix=/public/home/users/shu001/software/fftw-3.3.8 CC=icc F77=ifort MPICC=mpiicc --enable-float --enable-sse --enable-shared --enable-static --enable-mpi --enable-threads --enable-avx --enable-avx2 --enable-openmp
+make -j 8 
+make install
+</code></pre>
+</div></div>
+
+
+
+
+
 <h2><b>上海超算魔方3环境变量</b></h2>
 <pre class="highlight"><code>
 source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh

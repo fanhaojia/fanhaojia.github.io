@@ -40,6 +40,20 @@
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>hdf1.12编译</b></h2>
+<pre class="highlight"><code>
+cd hdf5-1.12.0
+mkdir install_dir
+./configure --prefix=/public/home/users/shu002/software/hdf5-1.12.0/install_dir CC=mpiicc FC=mpiifort --enable-parallel --enable-fortran --enable-shared
+make all install
+虽然可以安装成功，但是编译BerkeleyGW的时候似乎报错。所以我最后使用了hdf5-1.10.5.tar.gz
+</code></pre>
+</div></div>
+
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <h2><b>上海超算魔方3环境变量</b></h2>
 <pre class="highlight"><code>
 source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh

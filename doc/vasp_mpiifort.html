@@ -37,6 +37,35 @@
 				
 <section class="wrapper style1 align-left">
 <div class="inner">
+
+<h2><b>wannier90编译</b></h2>
+<p>拓扑材料计算和GW计算需要用到wannier interpretation，建议安装</p>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+tar -zxvf wannier90-2.1.0.tar.gz /wannier90-2.1.0.tar.gz
+cd wannier90-2.1.0/wannier90-3.1.0
+cp ./config/make.inc.ifort ./make.inc
+vi make.inc
+"MKLROOT =/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl
+LIBDIR = $MKLROOT/lib/intel64"
+make all
+</code></pre>
+</div></div>
+
+<h2><b>vasp.6.2.0编译</b></h2>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
+module load intel2020
+cp arch/makefile.include.linux_intel ./makefile.incule 
+vi makefile.include
+-DVASP2WANNIER90
+LLIBS += /your-wannier90-directory/libwannier.a
+MKLROOT=/intel/mkl
+</code></pre>
+</div></div>
+
 <h2><b>安装Intel compiler</b></h2>
 <p>&nbsp; &nbsp; &nbsp; &nbsp; Intel编译器</p>
 <div class="language-plaintext highlighter-rouge">
@@ -52,21 +81,6 @@ source /public/software/profile.d/compiler_intel-compiler-2017.5.239.sh
 
 which ifort
 which mpiifort
-</code></pre>
-</div></div>
-
-<h2><b>wannier90编译</b></h2>
-<p>拓扑材料计算和GW计算需要用到wannier interpretation，建议安装</p>
-<div class="language-plaintext highlighter-rouge">
-<div class="highlight">
-<pre class="highlight"><code>
-tar -zxvf wannier90-2.1.0.tar.gz
-cd wannier90-2.1.0
-cp ./config/make.inc.ifort ./make.inc
-vi make.inc
-"MKLROOT =/THFS/opt/intel/parallel_studio_xe_2018_update2/compilers_and_libraries_2018.2.199/linux/mkl
-LIBDIR = $MKLROOT/lib/intel64"
-make all
 </code></pre>
 </div></div>
 

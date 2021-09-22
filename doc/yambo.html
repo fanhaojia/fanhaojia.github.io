@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Fanhao Jia</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../assets/css/katex.min.css" />
+		<script src="../assets/js/katex.min.js"></script>
+		<script src="../assets/js/auto-render.js"></script>	
+		<script type="text/x-mathjax-config">  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!--<script id="MathJax-script" async src="../assets/js/tex-mml-chtml.js"></script>-->
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+    </head>
+  
+<body>
+    <nav >
+        <div class="container"> 
+            <div class="navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="https://fanhaojia.github.io/#note"><b>主页Home</b></a>
+                    </li>
+                </ul>
+            </div>
+        </div>			
+    </nav>
+	
+<main id="main">
+    <div class="content inner">
+				<header class="page-header">
+					<center><h2 class="page-title">&nbsp; Yambo编译</h2></center>
+				</header>
+				
+<section class="wrapper style1 align-left">
+<div class="inner">
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install yambo-5.0.3</b></h2>
+<pre class="highlight"><code>
+source /public4/soft/modules/module.sh
+module load intel/17.0.5-cjj-public4-public4
+export MKLROOT=/public4/soft/intel/2017/compilers_and_libraries_2017.5.239/linux/mkl
+
+./configure --prefix=/public4/home/sc56152/software/yambo/5.0.3 
+FC=ifort F77=ifort CC=icc MPICC=mpiicc MPIFC=mpiifort MPIF77=mpiifort CFLAGS=-O3 FCFLAGS=-O3 FFLAGS=-O3 
+--enable-mpi --enable-uspp --enable-options-check --enable-memory-profile 
+--with-fft-path=/public4/home/sc56152/software/fftw/fftw-3.3.9
+--enable-hdf5-compression --enable-hdf5-par-io --enable-hdf5-p2y-support --with-hdf5-path=/public4/home/sc56152/software/hdf5/1.10.5/install_dir 
+--with-blacs-libs="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64" 
+--with-scalapack-libs="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
+--with-blas-libs="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
+--with-lapack-libs="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" 
+--enable-iotk --with-iotk-path=/public4/home/sc56152/software/qe/6.6.0/iotk
+
+--with-hdf5-libdir=/public4/home/sc56152/software/hdf5/1.10.5/install_dir/lib 
+--with-hdf5-includedir=/public4/home/sc56152/software/hdf5/1.10.5/install_dir/include 
+</code></pre>
+</div></div>
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+			<script src="../assets/js/jquery-3.3.1.slim.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
+

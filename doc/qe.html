@@ -43,28 +43,51 @@
 <div class="highlight">
 
 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install libxc</b></h2>
+<pre class="highlight"><code>
+source /public4/soft/modules/module.sh
+module load intel/17.0.5-cjj-public4-public4
+
+./configure --prefix=/public4/home/sc56152/software/libxc-5.1.6 CC="icc -std=c11 -pedantic-errors" FC=ifort
+make -j 8
+make install
+
+</code></pre>
+</div></div>
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
-<h2><b>Install QE-6.7.0</b></h2>
+<h2><b>Install hdf5</b></h2>
 <pre class="highlight"><code>
-export MKLROOT=/public/software//compiler/intel/intel-compiler-2017.5.239/mkl
+./configure --prefix=/public4/home/sc56152/software/hdf5-1.12.0 CC=mpiicc FC=mpiifort --enable-parallel --enable-fortran
+make
+make install
+</code></pre>
+</div></div>
 
-./configure --prefix=/public/home/users/shu001/software/qe/qe-6.7.0 
- MPIF90=mpiifort F90=ifort CC=icc --enable-parallel 
-BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
-SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
-LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" 
-FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
---with-hdf5="/home/shunbohu/myhome/software/hdf5-1.10.5" 
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<h2><b>Install QE-6.8.0</b></h2>
+<pre class="highlight"><code>
+source /public4/soft/modules/module.sh
+module load intel/17.0.5-cjj-public4-public4
+export MKLROOT=/public4/soft/intel/2017/compilers_and_libraries_2017.5.239/linux/mkl
+
+./configure --prefix=/public4/home/sc56152/software/qe/6.8.0 MPIF90=mpiifort MPICC=mpiicc FC=ifort CC=icc F77=ifort --enable-parallel BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" --with-hdf5="/public4/home/sc56152/software/hdf5-1.12.0" --with-libxc=yes --with-libxc-prefix="/public4/home/sc56152/software/libxc/5.1.6" LIBDIRS=/public4/home/sc56152/software/fftw/fftw-3.3.9/lib
 
 vi make.inc
 添加-D__DFTI for DFTI (Intel MKL library)
 添加-D__FFTW for internal fftw
-make all
-
+or 添加-D__FFTW3 for FFTW3 (external)
+IFLAGS添加-I/public4/home/sc56152/software/fftw/fftw-3.3.9/include
+make all -j 8
+FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
 </code></pre>
 </div></div>
+
+
 
 <h2><b>FFTW编译</b></h2>
 <div class="language-plaintext highlighter-rouge">

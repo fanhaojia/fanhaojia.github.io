@@ -51,10 +51,12 @@
 <br>查看内核版本命令： cat /proc/version
 <br>查看linux版本：lsb_release -a
 <br>查看linux architecture：uname -m
+
+<br>lsblk 设备硬件信息，硬盘等
 <br>deepin 重启：
-<br>左手一直按住Ctrl+Alt，右手点击一下 SysRq（也就是PrtSc键，用来截屏的那个）
+<br>左手一直按住Ctrl+Alt，右手点击一下SysRq（也就是PrtSc键，用来截屏的那个）
 <br>接下来依次按下R、S、E、I、U、B，每个键都要稍按住一会儿再接着按下一个键
-<br>deepin 重启：左手一直按住Ctrl+Alt，右手点击一下 SysRq(也就是PrtSc键，用来截屏的那个)接下来依次按下R、S、E、I、U、B、O
+<br>deepin重启：左手一直按住Ctrl+Alt，右手点击一下SysRq(也就是PrtSc键，用来截屏的那个)接下来依次按下R、S、E、I、U、B、O
             </div>
         </div>
     </div>
@@ -86,14 +88,14 @@
 <br>/etc/init.d/pbs_mom restart
 <br>/etc/init.d/pbs_sched restart
 <br>
-<br> telnet icqms.shu.edu.cn 80
-<br> service httpd restart/start/status
+<br>telnet icqms.shu.edu.cn 80
+<br>service httpd restart/start/status
 
+<br>查看yum install的路径rpm -qa|grep environment-modules 然后 rpm -ql environment-modules-4.5.2-1.el8.x86_6
 <br>mkdir /home/tmp
 <br>sudo mount -t auto -o loop R2017b_glnxa64.iso /home/temp
 <br>umount /home/temp
-<br>如果umount失败：fuser -m /home/temp 查找该进程号  ps aux |grep 1338 然后 kill -9 1338
-
+<br>如果umount失败：fuser -m /home/temp 查找该进程号  ps aux |grep 1338 然后kill -9 1338
             </div>
         </div>
     </div>	

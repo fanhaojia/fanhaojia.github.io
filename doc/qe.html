@@ -54,6 +54,11 @@ module load intel/17.0.5-cjj-public4-public4
 make -j 8
 make install
 
+AMD cpus
+./configure --prefix=/share/opt/apps/libxc/6.1.0/2017 CC="icc -std=c11 -pedantic-errors" FC="ifort" FCFLAGS="-O2 -march=core-avx2 -openmp -I${MKLROOT}/include/intel64/lp64 -I${MKLROOT}/include -L${MKLROOT}/lib/intel64"
+
+
+
 </code></pre>
 </div></div>
 
@@ -69,13 +74,45 @@ make install
 
 <div class="language-plaintext highlighter-rouge">
 <div class="highlight">
+<h2><b>Install QE-7.1</b></h2>
+<pre class="highlight"><code>
+export MKLROOT=/share/opt/intel/2017/up7/compilers_and_libraries_2017.7.259/linux/mkl
+export HDF5_LIBS='-L/share/opt/apps/hdf/1.14.0/2017/lib -lhdf5 -lhdf5_fortran'
+
+
+./configure --prefix=/share/opt/apps/qe/7.1/2017 MPIF90=mpiifort MPICC=mpiicc FC=ifort CC=icc F77=ifort FCFLAGS="-O2 -march=core-avx2" --enable-parallel BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" --with-libxc=yes --with-libxc-prefix="/share/opt/apps/libxc/6.1.0/2017" --with-hdf5-libs="/share/opt/apps/hdf/1.14.0/2017/lib" --with-hdf5-include="/share/opt/apps/hdf/1.14.0/2017/include"
+
+
+vi make.inc
+-D__FFTW3 -D__DFTI -D__HDF5
+CPPFLAGS       = -P -traditional -Uvector -march=core-avx2 $(DFLAGS) $(IFLAGS)
+CFLAGS         = -O3 -march=core-avx2 $(DFLAGS) $(IFLAGS) $(CUDA_CFLAGS)
+FFLAGS         = -O2 -assume byterecl -g -traceback -qopenmp -march=core-avx2
+
+IFLAGS         = -I. -I$(TOPDIR)/include -I$(TOPDIR)/FoX/finclude  -I/share/opt/apps/libxc/6.1.0/2017/include -I/share/opt/apps/hdf/1.14.0/2017/include -I/share/opt/intel/2017/up7/compilers_and_libraries_2017.7.259/linux/mkl/include -I/share/opt/intel/2017/up7/compilers_and_libraries_2017.7.259/linux/mkl/include/fftw
+
+FFT_LIBS       =/share/opt/intel/2017/up7/compilers_and_libraries_2017.7.259/linux/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
+
+HDF5_LIBS = -L/share/opt/apps/hdf/1.14.0/2017/lib -lhdf5 -lhdf5_fortran
+
+make pw ph hp pp tddfpt xspectra couple epw ld1 w90
+</code></pre>
+</div></div>
+
+
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
 <h2><b>Install QE-6.8.0</b></h2>
 <pre class="highlight"><code>
 source /public4/soft/modules/module.sh
 module load intel/17.0.5-cjj-public4-public4
 export MKLROOT=/public4/soft/intel/2017/compilers_and_libraries_2017.5.239/linux/mkl
 
-./configure --prefix=/public4/home/sc56152/software/qe/6.8.0 MPIF90=mpiifort MPICC=mpiicc FC=ifort CC=icc F77=ifort --enable-parallel BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" --with-hdf5="/public4/home/sc56152/software/hdf5-1.12.0" --with-libxc=yes --with-libxc-prefix="/public4/home/sc56152/software/libxc/5.1.6" LIBDIRS=/public4/home/sc56152/software/fftw/fftw-3.3.9/lib
+./configure --prefix=/public4/home/sc56152/software/qe/6.8.0 MPIF90=mpiifort MPICC=mpiicc FC=ifort CC=icc F77=ifort --enable-parallel BLAS_LIBS="-L$MKLROOT/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core" 
+SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64" 
+LAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_lapack95_lp64" --with-hdf5="/public4/home/sc56152/software/hdf5-1.12.0" 
+--with-libxc=yes --with-libxc-prefix="/public4/home/sc56152/software/libxc/5.1.6" 
+LIBDIRS=/public4/home/sc56152/software/fftw/fftw-3.3.9/lib
 
 vi make.inc
 添加-D__DFTI for DFTI (Intel MKL library)
@@ -84,6 +121,11 @@ or 添加-D__FFTW3 for FFTW3 (external)
 IFLAGS添加-I/public4/home/sc56152/software/fftw/fftw-3.3.9/include
 make all -j 8
 FFT_LIBS=/public/software/compiler/intel/intel-compiler-2017.5.239/mkl/interfaces/fftw3xf/libfftw3xf_intel.a
+
+
+make -j8 
+make yambo
+
 </code></pre>
 </div></div>
 

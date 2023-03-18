@@ -6816,7 +6816,7 @@ input, select, textarea {
 			.gallery.style2 > .forward:before, .gallery.style2 > .backward:before {
 				display: block;
 				top: calc(50% - 1.5rem);
-				width: 4rem;
+				width: 2rem;
 				height: 3rem;
 				line-height: 1em;
 				font-size: 3rem;
@@ -6868,8 +6868,8 @@ input, select, textarea {
 			display: block;
 			position: relative;
 			overflow: hidden;
-			width: 22.5rem;
-			max-width: 75vw;
+			width: 17rem;
+			max-width: 25vw;
 		}
 
 			.gallery.style2 article .image {

@@ -136,6 +136,13 @@ git branch –d dev 删除dev分支
 git branch name 创建分支
 git add -u 添加修改过的文件到索引库
 
+
+当你试图从本地仓库触发推送到主仓库时git push origin master，你可能会遇到这样的错误
+:src refspec master does not match any
+这个错误可能是由不同原因引起的。最有可能出现这种错误的原因是，master 分支不存在。
+也许你克隆了一个新的仓库，默认的分支是 main，所以当你试图推送时，没有 master 分支。
+
+
 </code></pre>
 </div></div>
 <p>在GitHub上免费托管的Git仓库，任何人都可以看到，但只有你自己才能改。

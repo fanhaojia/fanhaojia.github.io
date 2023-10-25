@@ -71,23 +71,84 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion"  href="#Cproject">
-                Linux下的c语言工程
+                Daily functions
             </a>
             </h4>
         </div>
         <div id="Cproject" class="panel-collapse collapse">
         <div class="panel-body">
-<br>c
 <div class="language-plaintext highlighter-rouge">
-    <div class="highlight">
+
+<br> read_formula
+<div class="highlight">
     <pre class="highlight"><code>
-int add(int a,int b)
-{
-    return a+b;
-}
+import re
+def read_formula_elements(formula):
+    element_parten = re.compile("([A-Z][a-z]?)(\d*)")
+    elements = []
+    for (element_name, count) in element_parten.findall(formula):
+        if count == "":
+            count = 1
+        else:
+            count = int(count)
+        #elements.extend([element_name] * count)
+        elements.append(element_name)
+    return elements
     </code></pre>
-</div></div>
-		<br> passwd someone
+</div>
+
+<br> get POTCAR | ENCUT  | KPOINTS
+<div class="highlight">
+    <pre class="highlight"><code>
+import os
+import atomic_info_vasp as aiv
+def cat_potcar(elements=['Ba', 'Ti', 'O'], potpaw_path='/home/work_dir/potpaw/PBE'):
+    n=len(elements)
+    parent_dir = os.getcwd()
+    path1=os.path.join(parent_dir, 'POTCAR')
+    if os.path.exists(path1):
+        os.remove(path1)
+    for i in range(n):
+        path2=os.path.join(potpaw_path, aiv.recommended_potcar[elements[i]])
+        path3=os.path.join(path2,'POTCAR')
+        comd="cat " + path3 +" >> "+ path1
+        os.system(comd)
+def get_cutoff(elements=['Ba', 'Ti', 'O'], scaling=1.0):
+    mode='mine'
+    n=len(elements)
+    encut=[]
+    for i in range(n):
+        if mode=='mine':
+            ec=int(int(aiv.recommended_cutoff[elements[i]])*scaling)
+            encut.append(ec)
+        elif mode=='origin':
+            ec=int(int(aiv.recommended_cutoff_origin[elements[i]])*scaling)
+            encut.append(ec)
+        else:
+            print ('you need set mode to mine')
+    return max(encut)
+def get_kpoints(mode='opt', kgrid=[1,1,1]):
+    if mode=='opt-vdw' or mode=='opt' or mode=='scf':
+        l_kgrid=str(kgrid[0])+' '+str(kgrid[1])+' '+str(kgrid[2])+' \n'
+        fc=open('KPOINTS','w')
+        fc=open('KPOINTS','a+')
+        fc.writelines("Automatic \n")
+        fc.writelines(" 0 \n")
+        fc.writelines("Gamma \n")
+        fc.writelines(l_kgrid)
+        fc.writelines("0 0 0 \n")
+        fc.close()
+    </code></pre>
+</div>
+
+<div class="highlight">
+    <pre class="highlight"><code>
+
+    </code></pre>
+</div>
+
+
+</div>
 
         </div>
         </div>

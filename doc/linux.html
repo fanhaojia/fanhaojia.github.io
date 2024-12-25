@@ -82,6 +82,7 @@
 <br>scp /etc/$j node$i:/etc/
 <br>done
 <br>done
+		<br>也可编辑/etc/passwd, shadow, group 三个文件
 		<br>
 		<br>重启server与计算节点PBS服务：
 <br>/etc/init.d/pbs_server restart
@@ -211,6 +212,10 @@ int add(int a,int b)
         </div>
         <div id="unzip" class="panel-collapse collapse">
             <div class="panel-body">
+			<br>Putty默认的颜色费眼不好看，推荐follow设置成这个主题：
+            <br>https://ethanschoonover.com/solarized
+			
+			
             <br>ee=`awk '/free  energy/ {print $5}' OUTCAR`;echo $ee
 			<br>ee=`awk 'NR==1{print}' OUTCAR`;echo $ee
 			<br>sed -n "2p" merge.in | awk '{print $1}' 打印文本merge.in的第二行第一列; 这里 p ：打印
